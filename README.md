@@ -1,3 +1,3 @@
-## MEMORY-APP
+## SWEET-MEMORIES-APP
 
 ### MERN Stack responsive application 
