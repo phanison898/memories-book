@@ -60,7 +60,7 @@ const Post = ({ post }) => {
 
       <CardContent>
         <Typography variant="body2" color="textPrimary">{description}</Typography>
-        <Typography variant="caption" className={classes.tags}>{split_tags.map((tag)=>`#${tag} `)}</Typography>
+        <Typography variant="caption" className={classes.tags}>{split_tags.map((tag)=>`#${tag.trim()} `)}</Typography>
       </CardContent>
 
       <CardActions disableSpacing>
