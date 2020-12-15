@@ -1,22 +1,27 @@
 import {useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import Posts from "./components/posts";
+import Form from './components/form/form';
 import axios from "axios";
 import {Grid,AppBar,Toolbar,Typography,Hidden} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import { grey } from "@material-ui/core/colors";
 import image from './images/Pattern-Randomized.svg';
-import {red,blue} from '@material-ui/core/colors';
+import {GetPostData} from './actions/posts';
 
 const App = () => {
 
   // Runs once per every page refresh and updates the state
   // Value with data-base post values
   const dispatch = useDispatch();
-  useEffect(() => {
-    setTimeout(()=>{ axios.get("http://localhost:5000/posts")
-    .then((res) => {dispatch({type: "FETCH_ALL",payload: res.data,})},3000);},
-    [dispatch])});
+  // useEffect(() => {
+  //   setTimeout(()=>{ axios.get("http://localhost:5000/posts")
+  //   .then((res) => {dispatch({type: "FETCH_ALL",payload: res.data,})},3000);},
+  //   [dispatch])});
+
+  useEffect(()=>{
+    dispatch(GetPostData());
+  },[dispatch])
 
   const classes = styles();
 
@@ -46,7 +51,7 @@ const App = () => {
         </Grid>
         <Hidden smDown>
           <Grid item className={classes.right_section} md>
-
+            <Form />
           </Grid>
         </Hidden>
 

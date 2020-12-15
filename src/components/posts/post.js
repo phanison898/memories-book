@@ -14,6 +14,8 @@ import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import moment from 'moment';
 import Tooltip from '@material-ui/core/Tooltip';
+import {useDispatch} from 'react-redux';
+import {DeletePostData} from '../../actions/posts';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,11 +42,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Post = ({ post }) => {
 
-  const {title, description, tags, selectedFile, date} = post;
+  const {_id, title, description, tags, selectedFile, date} = post;
   const [tags_data] = tags;
   const split_tags = tags_data.split(",");
 
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
 
@@ -52,7 +55,7 @@ const Post = ({ post }) => {
 
       <CardHeader
         avatar={<Avatar aria-label="recipe" className={classes.avatar}>P</Avatar>}
-        action={<IconButton aria-label="settings"><MoreVertIcon /></IconButton>}
+        action={<IconButton aria-label="settings" onClick={()=>{dispatch(DeletePostData(_id))}}><MoreVertIcon /></IconButton>}
         title={title}
         subheader={moment(date).fromNow()}
       />
