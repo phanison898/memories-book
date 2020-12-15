@@ -3,31 +3,13 @@ import {blue} from '@material-ui/core/colors';
 
 const Style = makeStyles((theme)=>({
     root:{
+        width:"100%",
         display:"flex",
         flexDirection:"column",
         alignItems:"center",
+        boxShadow:"none",
         marginTop:theme.spacing(2),
-        marginLeft:theme.spacing(6),
-        marginRight:theme.spacing(6),
-        borderRadius:theme.spacing(2),
-        boxShadow:"none",
         //backgroundColor:"transparent",
-    },
-    heading:{
-        width:"100%",
-        height:"8vh",
-        fontFamily:"",
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        color:"white",
-        backgroundColor:blue[900],
-        marginBottom:theme.spacing(1),
-        borderTopRightRadius:theme.spacing(2),
-        borderTopLeftRadius:theme.spacing(2),
-        borderBottomLeftRadius:theme.spacing(0),
-        borderBottomRightRadius:theme.spacing(0),
-        boxShadow:"none",
     },
     form:{
         width:"80%",
@@ -43,10 +25,13 @@ const Style = makeStyles((theme)=>({
         }
     },
     button:{
+        display:"flex",
+        flexDirection:"row",
+        alignItems:"space-between",
+        justifyContent:"space-between",
         marginBottom:theme.spacing(2),
         '& > *':{
-            marginRight:theme.spacing(1),
-            marginLeft:theme.spacing(1),
+            width:"48%"
         }
     },
     upload:{

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -13,7 +13,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import moment from 'moment';
-import Tooltip from '@material-ui/core/Tooltip';
+import { Menu, MenuItem } from "@material-ui/core";
 import {useDispatch} from 'react-redux';
 import {DeletePostData} from '../../actions/posts';
 
@@ -41,13 +41,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Post = ({ post }) => {
-
+  
+  // Redux store data
   const {_id, title, description, tags, selectedFile, date} = post;
   const [tags_data] = tags;
   const split_tags = tags_data.split(",");
 
-  const classes = useStyles();
   const dispatch = useDispatch();
+
+  const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const closeMenuHandle = ()=>{
+    setAnchorEl(false);
+  }
 
   return (
 
@@ -55,7 +72,18 @@ const Post = ({ post }) => {
 
       <CardHeader
         avatar={<Avatar aria-label="recipe" className={classes.avatar}>P</Avatar>}
-        action={<IconButton aria-label="settings" onClick={()=>{dispatch(DeletePostData(_id))}}><MoreVertIcon /></IconButton>}
+        action=
+        {
+          <>
+            <IconButton aria-label="settings" onClick={handleClick}><MoreVertIcon /></IconButton>
+
+            <Menu id="post-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
+                <MenuItem onClick={()=>{closeMenuHandle()}}>Edit</MenuItem>
+                <MenuItem onClick={()=>{dispatch(DeletePostData(_id));closeMenuHandle();}}>Delete</MenuItem>
+            </Menu>
+
+          </>
+        }
         title={title}
         subheader={moment(date).fromNow()}
       />

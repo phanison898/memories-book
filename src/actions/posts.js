@@ -18,7 +18,7 @@ export const SendPostData = (post) => async (dispatch) => {
     }
 }
 
-export const DeletePostData = (id,post) => async(dispatch)=>{
+export const DeletePostData = (id) => async(dispatch)=>{
     try{
         await api.DeletePost(id);
         dispatch({type:"DELETE",payload:id});

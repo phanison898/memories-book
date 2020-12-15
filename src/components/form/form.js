@@ -6,7 +6,6 @@ import {useDispatch} from 'react-redux';
 import {SendPostData} from '../../actions/posts';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { connect} from "react-redux";
 
 const Form = () =>{
     const classes = Style();
@@ -42,7 +41,7 @@ const Form = () =>{
 
     return(
         <Paper className={classes.root}>
-            <Paper className={classes.heading} color="primary"><Typography variant="h5">Create Memory</Typography></Paper>
+            
             <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
 
                 <TextField required id="title" label="Title" variant="outlined" size="small" multiline 
@@ -59,10 +58,10 @@ const Form = () =>{
                     onDone={({base64})=>{setData({...data, selectedFile: base64})}} />
                 </div>
 
-                <ButtonBase className={classes.button} disableTouchRipple >
+                <div className={classes.button}>
                     <Button variant="contained" color="primary" fullWidth type="submit">Submit</Button>
                     <Button variant="contained" color="secondary" fullWidth onClick={onResetHandler}>Reset</Button>
-                </ButtonBase>
+                </div>
 
             </form>
         </Paper>
@@ -97,6 +96,4 @@ const Success = ()=>{
     )
 }
 
-const mapStateToProps = (state) => ({posts: state.posts});
-
-export default connect(mapStateToProps)(Form);
+export default Form;

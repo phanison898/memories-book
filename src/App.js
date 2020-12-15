@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch,connect} from "react-redux";
 import Posts from "./components/posts";
-import Form from './components/form/form';
+import FormHolder from './components/form';
 import axios from "axios";
 import {Grid,AppBar,Toolbar,Typography,Hidden} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
@@ -9,7 +9,7 @@ import { grey } from "@material-ui/core/colors";
 import image from './images/Pattern-Randomized.svg';
 import {GetPostData} from './actions/posts';
 
-const App = () => {
+const App = (props) => {
 
   // Runs once per every page refresh and updates the state
   // Value with data-base post values
@@ -18,6 +18,8 @@ const App = () => {
   //   setTimeout(()=>{ axios.get("http://localhost:5000/posts")
   //   .then((res) => {dispatch({type: "FETCH_ALL",payload: res.data,})},3000);},
   //   [dispatch])});
+
+  const posts = props.posts;
 
   useEffect(()=>{
     dispatch(GetPostData());
@@ -51,7 +53,7 @@ const App = () => {
         </Grid>
         <Hidden smDown>
           <Grid item className={classes.right_section} md>
-            <Form />
+            <FormHolder />
           </Grid>
         </Hidden>
 
@@ -105,6 +107,8 @@ const styles = makeStyles((theme)=>({
     paddingTop:theme.spacing(1),
   },
   right_section:{
+    display:"flex",
+    justifyContent:"center",
     height:"100%",
     backgroundColor: grey[200],
     backgroundImage: `url(${image})`,
@@ -116,4 +120,6 @@ const styles = makeStyles((theme)=>({
   }
 }));
 
-export default App;
+const mapStateToProps = (state) => ({posts: state.posts});
+
+export default connect(mapStateToProps)(App);
