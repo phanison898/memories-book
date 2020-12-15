@@ -13,6 +13,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import moment from 'moment';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,7 +61,9 @@ const Post = ({ post }) => {
 
       <CardContent>
         <Typography variant="body2" color="textPrimary">{description}</Typography>
-        <Typography variant="caption" className={classes.tags}>{split_tags.map((tag)=>`#${tag.trim()} `)}</Typography>
+        <Typography variant="caption" className={classes.tags}>
+          {split_tags.map((tag)=>`#${tag.trim()} `)}
+        </Typography>
       </CardContent>
 
       <CardActions disableSpacing>

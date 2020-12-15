@@ -1,6 +1,6 @@
 import { connect} from "react-redux";
 import Post from "./post";
-import {Paper} from "@material-ui/core";
+import {Paper,Grid} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {grey} from '@material-ui/core/colors';
 import PostLoading from './postLoading';
@@ -14,15 +14,17 @@ const styles = makeStyles((theme)=>({
     flexDirection:"column",
     justifyContent:"center",
     alignItems:"center",
-    backgroundColor: grey[200],
-    backgroundImage: `url(${image})`,
-    backgroundBlendMode:"multiply",
     borderRadius:0,
     border:"none",
     paddingTop:theme.spacing(1),
     "& > *":{
       margin:"0 0 10px 0",
-    }
+    },
+  },
+  loading:{
+    display:"flex",
+    justifyContent:"center",
+    alignContent:"center",
   }
 }));
 
@@ -34,10 +36,10 @@ const Posts = (props) => {
   return (
 
     !data.length
-    ? <Paper variant="outlined" className={classes.root}><PostLoading /></Paper>
-    : <Paper variant="outlined" className={classes.root}>
+    ? <div className={classes.loading}><PostLoading /></div>
+    : <div className={classes.root}>
       {data.map((post) => (<Post key={post._id} post={post} />))}
-      </Paper>
+      </div>
     
   );
 };

@@ -77,8 +77,9 @@ const styles = makeStyles((theme)=>({
     top:"10vh",
     height:"90vh",
     padding:theme.spacing(1),
-    backgroundColor: grey[500],
+    backgroundColor:"white",
     backgroundImage: `url(${image})`,
+    backgroundBlendMode:"multiply",
     "& > *":{
       borderRadius:"8px",
     }
