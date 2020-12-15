@@ -3,6 +3,9 @@ import Post from "./post";
 import {Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {grey} from '@material-ui/core/colors';
+import PostLoading from './postLoading';
+import image from '../../images/Pattern-Randomized.svg';
+import {red,blue} from '@material-ui/core/colors';
 
 const styles = makeStyles((theme)=>({
   root:{
@@ -11,7 +14,9 @@ const styles = makeStyles((theme)=>({
     flexDirection:"column",
     justifyContent:"center",
     alignItems:"center",
-    backgroundColor:grey[200],
+    backgroundColor: grey[200],
+    backgroundImage: `url(${image})`,
+    backgroundBlendMode:"multiply",
     borderRadius:0,
     border:"none",
     paddingTop:theme.spacing(1),
@@ -28,10 +33,11 @@ const Posts = (props) => {
 
   return (
 
-    <Paper variant="outlined" className={classes.root}>
-      {/* Represents Posts */}
+    !data.length
+    ? <Paper variant="outlined" className={classes.root}><PostLoading /></Paper>
+    : <Paper variant="outlined" className={classes.root}>
       {data.map((post) => (<Post key={post._id} post={post} />))}
-    </Paper>
+      </Paper>
     
   );
 };

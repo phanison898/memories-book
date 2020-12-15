@@ -5,6 +5,8 @@ import axios from "axios";
 import {Grid,AppBar,Toolbar,Typography,Hidden} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import { grey } from "@material-ui/core/colors";
+import image from './images/Pattern-Randomized.svg';
+import {red,blue} from '@material-ui/core/colors';
 
 const App = () => {
 
@@ -76,6 +78,7 @@ const styles = makeStyles((theme)=>({
     height:"90vh",
     padding:theme.spacing(1),
     backgroundColor: grey[500],
+    backgroundImage: `url(${image})`,
     "& > *":{
       borderRadius:"8px",
     }
@@ -83,10 +86,14 @@ const styles = makeStyles((theme)=>({
   left_section:{
     height:"100%",
     backgroundColor: grey[200],
+    backgroundImage: `url(${image})`,
+    backgroundBlendMode:"multiply",
   },
   posts_section:{
     height:"100%",
     backgroundColor: grey[200],
+    backgroundImage: `url(${image})`,
+    backgroundBlendMode:"multiply",
     overflowY:"scroll",
     margin:"0 8px",
     paddingTop:theme.spacing(1),
@@ -94,6 +101,8 @@ const styles = makeStyles((theme)=>({
   right_section:{
     height:"100%",
     backgroundColor: grey[200],
+    backgroundImage: `url(${image})`,
+    backgroundBlendMode:"multiply",
   },
   posts:{
     width:"80vw",

@@ -12,6 +12,7 @@ import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +53,7 @@ const Post = ({ post }) => {
         avatar={<Avatar aria-label="recipe" className={classes.avatar}>P</Avatar>}
         action={<IconButton aria-label="settings"><MoreVertIcon /></IconButton>}
         title={title}
-        subheader={date}
+        subheader={moment(date).fromNow()}
       />
 
       <CardMedia className={classes.media} image={selectedFile} title={title} />
