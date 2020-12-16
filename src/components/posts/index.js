@@ -38,7 +38,7 @@ const Posts = (props) => {
     !data.length
     ? <div className={classes.loading}><PostLoading /></div>
     : <div className={classes.root}>
-      {data.map((post) => (<Post key={post._id} post={post} />))}
+      {data.map((post) => (<Post key={post._id} post={post} setCurrentPostId={props.setCurrentPostId} />))}
       </div>
     
   );

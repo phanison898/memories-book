@@ -18,6 +18,15 @@ export const SendPostData = (post) => async (dispatch) => {
     }
 }
 
+export const UpdatePostById = (id, post) => async (dispatch) => {
+    try {
+        const {data} = await api.UpdatePost(id,post);
+        dispatch({type:"UPDATE", payload:data});
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 export const DeletePostData = (id) => async(dispatch)=>{
     try{
         await api.DeletePost(id);

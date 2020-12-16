@@ -1,14 +1,16 @@
-import {TextField,Paper,Typography,ButtonBase,Button} from '@material-ui/core';
+import {TextField,Paper,Button} from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import Style from './style';
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {SendPostData} from '../../actions/posts';
+import {useState, useEffect} from 'react';
+import {useDispatch, connect} from 'react-redux';
+import {SendPostData, UpdatePostById} from '../../actions/posts';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-const Form = () =>{
+const Form = ({currentPostId, setCurrentPostId, posts}) =>{
     const classes = Style();
+
+    const postById = currentPostId ? posts.find((p) => p._id === currentPostId) : null;
 
     const [data, setData] = useState({
         title:"",
@@ -17,15 +19,23 @@ const Form = () =>{
         selectedFile:"",
     });
 
+    useEffect(() =>{
+        if(postById){
+            setData(postById);
+        }
+    },[postById]);
+
     const dispatch = useDispatch();
 
     const onSubmitHandler = (e) =>{
         e.preventDefault();
-        try{
+        
+        if(currentPostId){
+            dispatch(UpdatePostById(currentPostId, data));
+            onResetHandler();
+        }else{
             dispatch(SendPostData(data));
             onResetHandler();
-        } catch(error){
-            console.log(error.message);
         }
     }
 
@@ -95,5 +105,6 @@ const Success = ()=>{
       </Snackbar>
     )
 }
+const mapStateToProps = (state) => ({posts: state.posts});
 
-export default Form;
+export default connect(mapStateToProps)(Form);

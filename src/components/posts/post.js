@@ -16,6 +16,7 @@ import moment from 'moment';
 import { Menu, MenuItem } from "@material-ui/core";
 import {useDispatch} from 'react-redux';
 import {DeletePostData} from '../../actions/posts';
+import {IsEditButtonClicked} from '../../actions/utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Post = ({ post }) => {
+const Post = ({ post, setCurrentPostId }) => {
   
   // Redux store data
   const {_id, title, description, tags, selectedFile, date} = post;
@@ -66,6 +67,12 @@ const Post = ({ post }) => {
     setAnchorEl(false);
   }
 
+  const clickEdit = () => {
+    setCurrentPostId(_id);
+    closeMenuHandle();
+    dispatch(IsEditButtonClicked());
+  }
+
   return (
 
     <Card className={classes.root}>
@@ -78,7 +85,7 @@ const Post = ({ post }) => {
             <IconButton aria-label="settings" onClick={handleClick}><MoreVertIcon /></IconButton>
 
             <Menu id="post-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
-                <MenuItem onClick={()=>{closeMenuHandle()}}>Edit</MenuItem>
+                <MenuItem onClick={()=>{clickEdit()}}>Edit</MenuItem>
                 <MenuItem onClick={()=>{dispatch(DeletePostData(_id));closeMenuHandle();}}>Delete</MenuItem>
             </Menu>
 

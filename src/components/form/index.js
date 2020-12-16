@@ -6,9 +6,9 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {blue} from '@material-ui/core/colors';
+import {connect} from 'react-redux';
 
 const styles = makeStyles((theme)=>({
     root:{
@@ -31,27 +31,48 @@ const styles = makeStyles((theme)=>({
     },
 }));
 
-const FormHolder = ()=>{
+const FormHolder = ({currentPostId, setCurrentPostId, EditBtn})=>{
 
     const classes = styles();
     const [isExpanded,setIsExpanded] = useState(false);
+    const [toggleFormHeading,setToggleFormHeading] = useState(false);
+
+    useEffect(() => {
+        if(currentPostId){
+            setIsExpanded(true);
+        }
+    }, [currentPostId]);
+
+    useEffect(() => {
+        if(EditBtn !== 1){
+            console.log("edit button: "+EditBtn);
+            setIsExpanded(true);
+            setToggleFormHeading(true);
+        }
+    }, [EditBtn])
 
     return(
         <div className={classes.root}>
 
-            <Accordion onChange={()=>setIsExpanded(!isExpanded)}>
+            <Accordion expanded={isExpanded} onChange={()=>setIsExpanded(!isExpanded)}>
 
                 <AccordionSummary className={classes.summary} color="primary" aria-controls="panel1a-content" id="panel1a-header"
                     expandIcon={isExpanded ? <RemoveIcon /> : <AddCircleIcon />}>
 
-                    <Typography variant="h5" className={classes.heading}>Add Memory</Typography>
+                    <Typography variant="h6" className={classes.heading}>
+                        {toggleFormHeading ? "Edit Memory" : "Add Memory"}
+                    </Typography>
 
                 </AccordionSummary>
 
                 <Divider variant="fullWidth" />
 
                 <AccordionDetails>
-                    <Form />
+                    <Form 
+                    currentPostId={currentPostId} 
+                    setCurrentPostId={setCurrentPostId} 
+                    toggleFormHeading={toggleFormHeading}
+                    setToggleFormHeading={setToggleFormHeading}/>
                 </AccordionDetails>
 
             </Accordion>
@@ -59,5 +80,6 @@ const FormHolder = ()=>{
         </div>
     )
 }
+const mapStateToProps = (state) => ({EditBtn : state.utils});
 
-export default FormHolder;
+export default connect(mapStateToProps)(FormHolder);
