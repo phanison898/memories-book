@@ -85,6 +85,9 @@ const styles = makeStyles((theme) => ({
     height: "inherit",
     overflowY: "scroll",
     margin: `0 ${theme.spacing(1) / 4}px`,
+    [theme.breakpoints.down("md")]: {
+      margin: 0,
+    },
     backgroundColor: grey[300],
     backgroundImage: `url(${image})`,
     backgroundBlendMode: "multiply",

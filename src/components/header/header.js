@@ -7,7 +7,7 @@ const Header = () => {
 
   return (
     <Grid container className={classes.root}>
-      <AppBar variant="elevation" className={classes.appBar} elevation={0}>
+      <AppBar variant="elevation" className={classes.appBar}>
         <Toolbar>
           <Hidden mdUp>
             <IconButton edge="start" color="inherit">
@@ -16,7 +16,7 @@ const Header = () => {
           </Hidden>
 
           <Typography variant="h6" className={classes.title}>
-            Memory book
+            Memories
           </Typography>
         </Toolbar>
       </AppBar>

@@ -5,10 +5,16 @@ const Style = makeStyles((theme) => ({
   root: {
     padding: `0 ${theme.spacing(4)}px`,
     paddingTop: theme.spacing(2),
+    [theme.breakpoints.down("md")]: {
+      padding: 0,
+    },
   },
   post: {
     width: "inherit",
     marginBottom: theme.spacing(2),
+    [theme.breakpoints.down("md")]: {
+      marginBottom: theme.spacing(1),
+    },
     borderRadius: 0,
     boxSizing: "border-box",
   },
