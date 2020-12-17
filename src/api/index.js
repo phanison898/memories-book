@@ -1,6 +1,7 @@
 import axios from "axios";
+import "dotenv/config";
 
-const url = "http://localhost:5000/posts";
+const url = process.env.API_URL;
 
 export const FetchPosts = () => axios.get(url);
 
