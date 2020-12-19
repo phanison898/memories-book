@@ -1,105 +1,44 @@
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch, connect } from "react-redux";
 import { useEffect, useState } from "react";
-import { Grid, Hidden } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { grey } from "@material-ui/core/colors";
-import image from "./images/Pattern-Randomized.svg";
+import { Grid } from "@material-ui/core";
 import { GetPostData } from "./actions/posts";
 import Posts from "./components/posts/posts";
-import FormHolder from "./components/form";
 import Header from "./components/header/header";
+import Form from "./components/form/form";
+import style from "./style";
 
 const App = (props) => {
   const posts = props.posts;
+  const dispatch = useDispatch();
 
   const [currentPostId, setCurrentPostId] = useState(null);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetPostData());
   }, [dispatch]);
 
-  const classes = styles();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const closeMenuHandle = () => {
-    setAnchorEl(false);
-  };
-
+  const classes = style();
   return (
-    <Grid container className={classes.root} direction="column">
-      <Grid item container className={classes.header} xs={12}>
-        <Header />
-      </Grid>
-
-      <Grid item container className={classes.body} xs={12} justify="space-around">
-        <Hidden smDown>
-          <Grid item container className={classes.left_section} md justify="center" alignItems="flex-start"></Grid>
-        </Hidden>
-        <Grid item container className={classes.posts_section} xs={12} sm={7} md={5} direction="column" justify="flex-start" alignItems="center">
-          <Posts setCurrentPostId={setCurrentPostId} />
+    <Router>
+      <Grid container className={classes.root} direction="column">
+        <Grid item container className={classes.header} xs={12}>
+          <Header postsCount={posts.length} />
         </Grid>
-        <Hidden smDown>
-          <Grid item container className={classes.right_section} md justify="center" alignItems="flex-start">
-            <FormHolder currentPostId={currentPostId} setCurrentPostId={setCurrentPostId} />
+
+        <Grid item container className={classes.body} justify="space-around">
+          <Grid item container className={classes.posts_section} xs={12} sm={7} md={5} direction="column" justify="flex-start" alignItems="center">
+            <Switch>
+              <Route path="/" exact render={() => <Posts />} />
+              <Route path="/add" render={() => <Form />} />
+            </Switch>
           </Grid>
-        </Hidden>
+        </Grid>
       </Grid>
-    </Grid>
+    </Router>
   );
 };
 
-const styles = makeStyles((theme) => ({
-  root: {
-    display: "relative",
-    boxSizing: "border-box",
-  },
-  header: {
-    height: "8vh",
-  },
-  body: {
-    position: "absolute",
-    top: "8vh",
-    height: "92vh",
-    backgroundColor: "white",
-    backgroundImage: `url(${image})`,
-    backgroundBlendMode: "multiply",
-  },
-  left_section: {
-    height: "inherit",
-    backgroundColor: grey[300],
-    backgroundImage: `url(${image})`,
-    backgroundBlendMode: "multiply",
-  },
-  posts_section: {
-    height: "inherit",
-    overflowY: "scroll",
-    margin: `0 ${theme.spacing(1) / 4}px`,
-    [theme.breakpoints.down("md")]: {
-      margin: 0,
-    },
-    backgroundColor: grey[300],
-    backgroundImage: `url(${image})`,
-    backgroundBlendMode: "multiply",
-  },
-  right_section: {
-    height: "inherit",
-    backgroundColor: grey[300],
-    backgroundImage: `url(${image})`,
-    backgroundBlendMode: "multiply",
-  },
-}));
-
-const mapStateToProps = (state) => ({ posts: state.posts });
+const mapStateToProps = (state) => ({ posts: state.posts, utils: state.utils });
 
 export default connect(mapStateToProps)(App);

@@ -11,13 +11,16 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 import moment from "moment";
-import { Menu, MenuItem } from "@material-ui/core";
+import { Menu, MenuItem, Tooltip } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { DeletePostData } from "../../actions/posts";
 import { IsEditButtonClicked } from "../../actions/utils";
 import { connect } from "react-redux";
 import Style from "./style";
+import { Link } from "react-router-dom";
 
 const Post = ({ post, setCurrentPostId }) => {
   const { _id, title, description, tags, selectedFile, date } = post;
@@ -64,12 +67,12 @@ const Post = ({ post, setCurrentPostId }) => {
             </IconButton>
 
             <Menu id="post-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
-              <MenuItem
-                onClick={() => {
-                  clickEdit();
-                }}
-              >
-                Edit
+              <MenuItem>
+                <Tooltip title="edit" placement="left">
+                  <Link to="/add">
+                    <EditIcon />
+                  </Link>
+                </Tooltip>
               </MenuItem>
               <MenuItem
                 onClick={() => {
@@ -77,7 +80,9 @@ const Post = ({ post, setCurrentPostId }) => {
                   closeMenuHandle();
                 }}
               >
-                Delete
+                <Tooltip title="delete" placement="left">
+                  <DeleteIcon />
+                </Tooltip>
               </MenuItem>
             </Menu>
           </>
