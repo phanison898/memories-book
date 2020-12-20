@@ -6,7 +6,7 @@
 ### Following are the features this app contains
 - User can create an account
 - User can login into the app
-- User can create a memory (a.k.a *post* ) that happend ih his/her day and upload
+- User can create a memory (a.k.a *post* ) that happend in his/her day
 - The post includes a title, description, tags and an image
 - User can update the the post
 - User can delete the post
