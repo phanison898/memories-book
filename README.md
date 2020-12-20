@@ -1,9 +1,9 @@
 ## `SWEET-MEMORIES-APP`
 >
-#### Summary
+### Summary
  This is a **React** based responsive web application, which follows CRUD operations (`Create - Read - Update - Delte`) . The app built upon **M.E.R.N** development stack
 >
-#### Following are the features this app contains
+### Following are the features this app contains
 - User can create an account
 - User can login into the app
 - User can create a memory (a.k.a *post* ) that happend ih his/her day and upload
@@ -12,7 +12,7 @@
 - User can delete the post
 - Finally user can logout
 >
-#### Technologies used
+### Technologies used
 - **Front-end**
     * Node.js
     * React.js
@@ -25,6 +25,6 @@
     - MongoDB (Atlassian)
 >
 
-#### Releases
+### Releases
 - [v1.1.0](https://github.com/phanison898/sweet-memories-app/archive/v1.1.0.zip) <br /> Fully working initial version. User can implement CRUD operations. <br /> `Note`: Yet to implement login/sign-up functionality
     
