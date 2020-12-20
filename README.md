@@ -26,5 +26,5 @@
 >
 
 #### Releases
-- [v1.1.0](https://github.com/phanison898/sweet-memories-app/archive/v1.1.0.zip) <br /> Fully working initial version. User can implement CRUD operations. <br /> `**Note**`: Yet to implement login/sign-up functionality
+- [v1.1.0](https://github.com/phanison898/sweet-memories-app/archive/v1.1.0.zip) <br /> Fully working initial version. User can implement CRUD operations. <br /> `Note`: Yet to implement login/sign-up functionality
     
