@@ -12,6 +12,8 @@
 - User can delete the post
 - Finally user can logout
 >
+![preview](https://github.com/phanison898/phanison898/blob/main/sweet-memories-app-preview.PNG)
+>
 ### Technologies used
 - **Front-end**
     * Node.js
