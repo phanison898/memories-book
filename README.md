@@ -1,7 +1,7 @@
 ## `SWEET-MEMORIES-APP`
 >
 ### Summary
- This is a **React** based responsive web application, which follows CRUD operations (`Create - Read - Update - Delte`) . The app built upon **M.E.R.N** development stack
+ This is a **React** based responsive web application, which follows CRUD operations (`Create - Read - Update - Delete`) . The app built upon **M.E.R.N** development stack
 >
 ### Following are the features this app contains
 - User can create an account
