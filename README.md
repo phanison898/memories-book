@@ -12,7 +12,7 @@
 - User can delete the post
 - Finally user can logout
 >
-![preview](https://github.com/phanison898/phanison898/blob/main/cover_image_phanison898.png)
+:::image type="content" source="src/images/bg.svg" alt-text="preview":::
 >
 ### Technologies used
 - **Front-end**
