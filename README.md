@@ -12,8 +12,6 @@
 - User can delete the post
 - Finally user can logout
 >
-:::image type="content" source="src/images/bg.svg" alt-text="preview":::
->
 ### Technologies used
 - **Front-end**
     * Node.js
