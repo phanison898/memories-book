@@ -1,4 +1,4 @@
-## <span style="color:green">SWEET-MEMORIES-APP</span>
+## `SWEET-MEMORIES-APP`
 >
 #### Summary
  This is a **React** based responsive web application, which follows CRUD operations (`Create - Read - Update - Delte`) . The app built upon **M.E.R.N** development stack
@@ -26,5 +26,5 @@
 >
 
 #### Releases
-- [v1.1.0](https://github.com/phanison898/sweet-memories-app/archive/v1.1.0.zip) <br /> Fully working inital version. User can implement CRUD operations. <br /> <span style="color:red">**Note**</span>: Yet to implement login/sign-up functionality
+- [v1.1.0](https://github.com/phanison898/sweet-memories-app/archive/v1.1.0.zip) <br /> Fully working initial version. User can implement CRUD operations. <br /> `**Note**`: Yet to implement login/sign-up functionality
     
