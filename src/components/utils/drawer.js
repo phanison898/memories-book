@@ -8,7 +8,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   list: {
@@ -21,6 +21,7 @@ const useStyles = makeStyles({
 
 const MenuDrawer = ({ isOpen, setIsOpen, listData }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -40,12 +41,10 @@ const MenuDrawer = ({ isOpen, setIsOpen, listData }) => {
     >
       <List>
         {listData.map(({ name, icon, link }) => (
-          <Link to={link}>
-            <ListItem button key={name}>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={name} />
-            </ListItem>
-          </Link>
+          <ListItem button key={name}>
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText primary={name} />
+          </ListItem>
         ))}
       </List>
     </div>

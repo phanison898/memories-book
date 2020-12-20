@@ -1,21 +1,22 @@
 import { TextField, Paper, Button, Typography, Tooltip } from "@material-ui/core";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AddAPhoto, PhonelinkSetup } from "@material-ui/icons";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import * as Joi from "yup";
-import { SendPostData } from "../../actions/posts";
+import { SendPostData,UpdatePostById } from "../../actions/posts";
 import Style from "./style";
-import { useHistory } from "react-router-dom";
+import { useHistory,useParams } from "react-router-dom";
 
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
 
-const Form = () => {
+const Form = ({posts}) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  let {id} = useParams();
   const classes = Style();
 
   const [data, setData] = useState({
@@ -25,10 +26,17 @@ const Form = () => {
     selectedFile: "",
   });
 
+  useEffect(() => {
+    if(id!==undefined){
+      const [{title,description,tags,selectedFile}] = posts.filter((post)=>post._id===id);
+      setData({...data,title:title,description:description,tags:tags,selectedFile:selectedFile})
+    }
+  }, [])
+
   const schema = Joi.object().shape({
-    title: Joi.string().min(6).max(255).required(),
-    description: Joi.string().min(6).max(1024).required(),
-    tags: Joi.string(),
+    title: Joi.string().min(3).max(255).required(),
+    description: Joi.string().min(3).max(1024).required(),
+    tags: Joi.string().min(1).max(255),
     selectedFile: Joi.string().required(),
   });
   const onSubmitHandler = async (e) => {
@@ -42,12 +50,21 @@ const Form = () => {
         console.log(error);
       });
       if (flag) {
-        dispatch(SendPostData(data));
-        setTimeout(() => {
+        if(id===undefined){
+          dispatch(SendPostData(data));
+          setTimeout(() => {
           onResetHandler();
           history.push("/");
-        }, 3000);
+          }, 3000)
+        }else{
+          dispatch(UpdatePostById(id,data));
+          setTimeout(() => {
+            onResetHandler();
+            history.push("/");
+          }, 3000)
+        }
       } else {
+        console.log(id);
       }
     } catch (err) {
       console.log(err);
@@ -84,7 +101,7 @@ const Form = () => {
     <Paper className={classes.root}>
       <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
         <Typography variant="subtitle1" className={classes.heading}>
-          Add Memory
+         {id===undefined ? "Add Memory" : "Update Memory"}
         </Typography>
         <TextField variant="filled" required id="title" label="Title" size="small" multiline value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
         <Paper className={classes.upload}>
@@ -102,7 +119,7 @@ const Form = () => {
 
         <div className={classes.button}>
           <Button variant="contained" color="primary" fullWidth type="submit">
-            Submit
+          {id===undefined ? "Upload" : "Update"}
           </Button>
           <Button variant="contained" color="secondary" fullWidth onClick={onResetHandler}>
             Reset

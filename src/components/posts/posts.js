@@ -17,17 +17,17 @@ import moment from "moment";
 import { Menu, MenuItem, Tooltip } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { DeletePostData } from "../../actions/posts";
-import { IsEditButtonClicked } from "../../actions/utils";
-import { connect } from "react-redux";
 import Style from "./style";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const Post = ({ post, setCurrentPostId }) => {
+const Post = ({ post}) => {
   const { _id, title, description, tags, selectedFile, date } = post;
   const [tags_data] = tags;
   const split_tags = tags_data.split(",");
 
   const dispatch = useDispatch();
+  const history = useHistory();
+  
 
   const classes = Style();
 
@@ -47,10 +47,10 @@ const Post = ({ post, setCurrentPostId }) => {
   };
 
   const clickEdit = () => {
-    setCurrentPostId(_id);
     closeMenuHandle();
-    dispatch(IsEditButtonClicked());
+    history.push(`/edit/${_id}`);
   };
+
 
   return (
     <Card className={classes.post}>
@@ -69,9 +69,7 @@ const Post = ({ post, setCurrentPostId }) => {
             <Menu id="post-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
               <MenuItem>
                 <Tooltip title="edit" placement="left">
-                  <Link to="/add">
-                    <EditIcon />
-                  </Link>
+                  <EditIcon onClick={clickEdit} />
                 </Tooltip>
               </MenuItem>
               <MenuItem
@@ -113,7 +111,7 @@ const Post = ({ post, setCurrentPostId }) => {
   );
 };
 
-const Posts = ({ posts, setCurrentPostId }) => {
+const Posts = ({ posts}) => {
   const data = Array.from(posts);
   const postCount = data.length;
   const classes = Style();
@@ -121,12 +119,10 @@ const Posts = ({ posts, setCurrentPostId }) => {
   return (
     <Grid item container xs={12} className={classes.root} direction={postCount > 1 ? "column-reverse" : "column"} alignItems="center" justify="flex-start">
       {data.map((post) => (
-        <Post key={post._id} post={post} setCurrentPostId={setCurrentPostId} />
+        <Post key={post._id} post={post}/>
       ))}
     </Grid>
   );
 };
 
-const mapStateToProps = (state) => ({ posts: state.posts });
-
-export default connect(mapStateToProps)(Posts);
+export default Posts;
