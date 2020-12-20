@@ -16,7 +16,7 @@ import MenuDrawer from "../../components/utils/drawer";
 import { useHistory } from "react-router-dom";
 import Style from "./style";
 
-const Header = ({ postsCount, posts, searchText, setSearchText }) => {
+const Header = ({ postsCount, posts }) => {
   const data = Array.from(posts);
   const classes = Style();
   const history = useHistory();
@@ -44,11 +44,6 @@ const Header = ({ postsCount, posts, searchText, setSearchText }) => {
     setIsOpen(!isOpen);
   };
 
-  const search = (e) => {
-    setSearchText(e.target.value);
-    console.log(searchText);
-  };
-
   return (
     <>
       <AppBar position="static">
@@ -70,7 +65,6 @@ const Header = ({ postsCount, posts, searchText, setSearchText }) => {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
-              onChange={search}
             />
           </div>
 
