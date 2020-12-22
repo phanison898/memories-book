@@ -3,18 +3,14 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import ImageIcon from "@material-ui/icons/Image";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
 import SettingsIcon from "@material-ui/icons/Settings";
 import HomeIcon from "@material-ui/icons/Home";
 import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import MenuDrawer from "../../components/utils/drawer";
 import Style from "./style";
-import { GetUser } from "../../actions/users";
+import { GetUser, Logout } from "../../actions/users";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -41,16 +37,19 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menu = [
     {
+      id: 1,
       icon: <HomeIcon />,
       name: "Home",
       link: "/",
     },
     {
+      id: 2,
       icon: <NoteAddIcon />,
       name: "Add Memory",
       link: "/add",
     },
     {
+      id: 3,
       icon: <SettingsIcon />,
       name: "settings",
       link: "/settings",
@@ -62,6 +61,11 @@ const Header = () => {
   };
 
   const HandleLogout = () => {
+    try {
+      dispatch(Logout());
+    } catch (error) {
+      console.log(error.message);
+    }
     window.localStorage.removeItem("auth-token");
     setLogout(true);
   };
@@ -91,23 +95,13 @@ const Header = () => {
           </div>
 
           <div className={classes.right}>
-            {/* <IconButton aria-label="posts count" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <ImageIcon />
-              </Badge>
-            </IconButton>
-            <Fab color="secondary" size="small">
-              <AddIcon />
-            </Fab> */}
             <IconButton onClick={HandleLogout}>
               <ExitToAppIcon />
             </IconButton>
           </div>
         </Toolbar>
       </AppBar>
-      <MenuDrawer isOpen={isOpen} setIsOpen={setIsOpen} listData={menu} />
-      <h2>name: {name}</h2>
-      <h2>email: {email}</h2>
+      <MenuDrawer isOpen={isOpen} setIsOpen={setIsOpen} listData={menu} name={name} email={email} />
     </>
   );
 };

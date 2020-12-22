@@ -15,6 +15,8 @@ const usersReducer = (state = {}, action) => {
       return action.payload;
     case "GET_USER":
       return { ...state, name: action.payload.name, email: action.payload.email };
+    case "LOGOUT":
+      return action.payload;
     default:
       return state;
   }

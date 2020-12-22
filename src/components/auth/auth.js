@@ -21,14 +21,17 @@ const Auth = () => {
 
   useEffect(() => {
     const LOCAL_TOKEN = window.localStorage.getItem("auth-token");
+    console.log("out" + status);
     if (token) {
       if (token.localeCompare(LOCAL_TOKEN) == 0) {
         history.push("/");
       }
+      console.log("if" + status);
     } else {
       if (LOCAL_TOKEN) {
         history.push("/");
       }
+      console.log("else" + status);
     }
   }, [token]);
 
