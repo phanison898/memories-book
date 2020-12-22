@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -13,13 +13,30 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import HomeIcon from "@material-ui/icons/Home";
 import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import MenuDrawer from "../../components/utils/drawer";
-import { useHistory } from "react-router-dom";
 import Style from "./style";
+import { GetUser } from "../../actions/users";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
-const Header = ({ postsCount, posts }) => {
-  const data = Array.from(posts);
+const Header = () => {
   const classes = Style();
+  const dispatch = useDispatch();
   const history = useHistory();
+  const { email, name } = useSelector((state) => state.users);
+
+  const [logout, setLogout] = useState(false);
+
+  useEffect(() => {
+    if (window.localStorage.getItem("auth-token") === null) {
+      history.push("/auth");
+    } else {
+      const getData = async () => {
+        dispatch(GetUser());
+      };
+      getData();
+    }
+  }, [logout]);
 
   const [isOpen, setIsOpen] = useState(false);
   const menu = [
@@ -42,6 +59,11 @@ const Header = ({ postsCount, posts }) => {
 
   const handleMenuClick = () => {
     setIsOpen(!isOpen);
+  };
+
+  const HandleLogout = () => {
+    window.localStorage.removeItem("auth-token");
+    setLogout(true);
   };
 
   return (
@@ -69,18 +91,23 @@ const Header = ({ postsCount, posts }) => {
           </div>
 
           <div className={classes.right}>
-            <IconButton aria-label="posts count" color="inherit">
-              <Badge badgeContent={postsCount} color="secondary">
+            {/* <IconButton aria-label="posts count" color="inherit">
+              <Badge badgeContent={4} color="secondary">
                 <ImageIcon />
               </Badge>
             </IconButton>
-            <Fab color="secondary" size="small" onClick={() => history.push("/add")}>
+            <Fab color="secondary" size="small">
               <AddIcon />
-            </Fab>
+            </Fab> */}
+            <IconButton onClick={HandleLogout}>
+              <ExitToAppIcon />
+            </IconButton>
           </div>
         </Toolbar>
       </AppBar>
       <MenuDrawer isOpen={isOpen} setIsOpen={setIsOpen} listData={menu} />
+      <h2>name: {name}</h2>
+      <h2>email: {email}</h2>
     </>
   );
 };

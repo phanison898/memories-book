@@ -2,20 +2,43 @@ import * as api from "../api";
 
 export const SignUp = (signUpData) => async (dispatch) => {
   try {
-    const { data } = await api.SignUp(signUpData);
-    dispatch({ type: "SIGNUP", payload: data });
+    let responseData;
+    try {
+      const { data } = await api.SignUp(signUpData);
+      responseData = await data;
+    } catch (error) {
+      responseData = await error.response.data;
+    }
+    if (responseData.token) {
+      window.localStorage.setItem("auth-token", responseData.token);
+    }
+    dispatch({ type: "SIGNUP", payload: responseData });
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const SignIn = (signInData) => async (dispatch) => {
-  let responseData;
+export const Login = (loginData) => async (dispatch) => {
   try {
-    const { data } = await api.SignIn(signInData);
-    responseData = data;
+    let responseData;
+    try {
+      const { data } = await api.SignIn(loginData);
+      responseData = await data;
+    } catch (error) {
+      responseData = await error.response.data;
+    }
+    window.localStorage.setItem("auth-token", responseData.token);
+    dispatch({ type: "LOGIN", payload: responseData });
   } catch (error) {
-    responseData = error.response.data;
+    console.log(error.message);
   }
-  dispatch({ type: "SIGNIN", payload: responseData });
+};
+
+export const GetUser = () => async (dispatch) => {
+  try {
+    const { data } = await api.GetUser();
+    dispatch({ type: "GET_USER", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
 };

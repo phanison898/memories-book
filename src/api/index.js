@@ -17,3 +17,5 @@ export const DeletePost = (id) => axios.delete(`${url}/posts/${id}`);
 export const SignUp = (signUpData) => axios.post(`${url}/users/sign-up`, signUpData);
 
 export const SignIn = (signInData) => axios.post(`${url}/users/sign-in`, signInData);
+
+export const GetUser = () => axios.get(`${url}/users`, { headers: { "auth-token": window.localStorage.getItem("auth-token") } });
