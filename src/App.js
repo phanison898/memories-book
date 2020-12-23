@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import style from "./style";
 import Auth from "./components/auth/auth";
-import Header from "./components/header/header";
+import Home from "./pages/home/home";
 
 const App = () => {
   const classes = style();
@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Header} />
+        <Route exact path="/" component={Home} />
         <Route path="/auth" component={Auth} />
       </Switch>
     </Router>

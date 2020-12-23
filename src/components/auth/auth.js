@@ -11,7 +11,12 @@ const Auth = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { token, status, message } = useSelector((state) => state.users);
+  const users = useSelector((state) => state.users);
+
+  const authStatus = users.login.status;
+  const message = users.login.message;
+
+  const switching = users.switch.status;
 
   const [loginData, setLoginData] = useState({ email: "", password: "" });
 
@@ -20,20 +25,12 @@ const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
-    const LOCAL_TOKEN = window.localStorage.getItem("auth-token");
-    console.log("out" + status);
-    if (token) {
-      if (token.localeCompare(LOCAL_TOKEN) == 0) {
-        history.push("/");
-      }
-      console.log("if" + status);
-    } else {
-      if (LOCAL_TOKEN) {
-        history.push("/");
-      }
-      console.log("else" + status);
+    if (window.localStorage.getItem("auth-token") !== null && window.localStorage.getItem("auth-token") !== undefined) {
+      // Authentication success : goto home page
+      history.push("/");
+      return;
     }
-  }, [token]);
+  }, [switching]);
 
   const onLoginSubmit = (e) => {
     e.preventDefault();
@@ -87,7 +84,7 @@ const Auth = () => {
             <TextField required label="email" type="email" variant="standard" fullWidth value={loginData.email} onChange={(e) => setLoginData({ ...loginData, email: e.target.value })} />
             <TextField required label="password" type="password" variant="standard" fullWidth value={loginData.password} onChange={(e) => setLoginData({ ...loginData, password: e.target.value })} />
             <Typography variant="caption" className={classes.error}>
-              {status ? <CircularProgress /> : message}
+              {!authStatus && message}
             </Typography>
             <Button type="submit" size="large" fullWidth variant="contained" color="primary">
               Submit
@@ -105,7 +102,7 @@ const Auth = () => {
               Submit
             </Button>
             <Typography variant="caption" className={classes.error}>
-              {status ? <CircularProgress /> : message}
+              {!authStatus && message}
             </Typography>
           </form>
         )}

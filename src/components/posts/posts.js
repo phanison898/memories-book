@@ -20,14 +20,13 @@ import { DeletePostData } from "../../actions/posts";
 import Style from "./style";
 import { useHistory } from "react-router-dom";
 
-const Post = ({ post}) => {
+const Post = ({ post }) => {
   const { _id, title, description, tags, selectedFile, date } = post;
   const [tags_data] = tags;
   const split_tags = tags_data.split(",");
 
   const dispatch = useDispatch();
   const history = useHistory();
-  
 
   const classes = Style();
 
@@ -50,7 +49,6 @@ const Post = ({ post}) => {
     closeMenuHandle();
     history.push(`/edit/${_id}`);
   };
-
 
   return (
     <Card className={classes.post}>
@@ -111,7 +109,7 @@ const Post = ({ post}) => {
   );
 };
 
-const Posts = ({ posts}) => {
+const Posts = ({ posts }) => {
   const data = Array.from(posts);
   const postCount = data.length;
   const classes = Style();
@@ -119,7 +117,7 @@ const Posts = ({ posts}) => {
   return (
     <Grid item container xs={12} className={classes.root} direction={postCount > 1 ? "column-reverse" : "column"} alignItems="center" justify="flex-start">
       {data.map((post) => (
-        <Post key={post._id} post={post}/>
+        <Post key={post._id} post={post} />
       ))}
     </Grid>
   );

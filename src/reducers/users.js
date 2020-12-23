@@ -1,22 +1,27 @@
 const initialState = {
-  status: undefined,
-  message: "",
-  token: "",
-  user: undefined,
-  name: "",
-  email: "",
+  login: {
+    status: false,
+    message: "",
+  },
+  userDetails: {
+    email: "",
+    name: "",
+  },
+  switch: {
+    status: "",
+  },
 };
 
-const usersReducer = (state = {}, action) => {
+const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SIGNUP":
-      return action.payload;
+      return { ...state, login: action.payload.login, switch: action.payload.switch };
     case "LOGIN":
-      return action.payload;
+      return { ...state, login: action.payload.login, switch: action.payload.switch };
     case "GET_USER":
-      return { ...state, name: action.payload.name, email: action.payload.email };
+      return { ...state, userDetails: action.payload };
     case "LOGOUT":
-      return action.payload;
+      return { ...state, switch: action.payload };
     default:
       return state;
   }

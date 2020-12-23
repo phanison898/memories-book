@@ -19,20 +19,16 @@ const Header = () => {
   const classes = Style();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { email, name } = useSelector((state) => state.users);
-
-  const [logout, setLogout] = useState(false);
+  const { email, name } = useSelector((state) => state.users.userDetails);
+  const { status } = useSelector((state) => state.users.switch);
 
   useEffect(() => {
-    if (window.localStorage.getItem("auth-token") === null) {
+    if (window.localStorage.getItem("auth-token") === null || window.localStorage.getItem("auth-token") === undefined) {
       history.push("/auth");
-    } else {
-      const getData = async () => {
-        dispatch(GetUser());
-      };
-      getData();
+      return;
     }
-  }, [logout]);
+    dispatch(GetUser());
+  }, [status]);
 
   const [isOpen, setIsOpen] = useState(false);
   const menu = [
@@ -66,8 +62,6 @@ const Header = () => {
     } catch (error) {
       console.log(error.message);
     }
-    window.localStorage.removeItem("auth-token");
-    setLogout(true);
   };
 
   return (
