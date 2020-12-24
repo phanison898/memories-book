@@ -18,7 +18,8 @@ This is a **React** based responsive web application, which follows CRUD operati
 - User can update the the post
 - User can delete the post
 - Finally user can logout
-  <a href="https://phanison898.github.io/images/sweet-memories/sweet-memories-app-preview.PNG"><img src="https://phanison898.github.io/images/sweet-memories/sweet-memories-app-preview.PNG" width="100px" style="position:absolute;right:15px;top:347px" /></a>
+
+> <img src="https://phanison898.github.io/images/sweet-memories/sweet-memories-app-preview.PNG" style="width:50%;height:inherit;padding:20px" />
 
 > ### Technologies used
 
