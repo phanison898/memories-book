@@ -9,7 +9,7 @@
 
 ### **`Summary`**
 
-This is a **React** based responsive web application, which follows CRUD operations (`Create - Read - Update - Delete`) . The app built upon using **M.E.R.N** development stack
+This project is a **`React`** based responsive web application, where user uploads his/her best memories in the form of posts. The app follows CRUD operations (`Create - Read - Update - Delete`) . This app fully built on by implementing complete **`M.E.R.N`** development stack
 
 >
 
