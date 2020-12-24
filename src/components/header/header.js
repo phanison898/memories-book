@@ -14,7 +14,6 @@ import { GetUser, Logout } from "../../actions/users";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import axios from "axios";
 
 const Header = () => {
   const classes = Style();
@@ -26,7 +25,6 @@ const Header = () => {
   useEffect(() => {
     if (window.localStorage.getItem("auth-token") === null || window.localStorage.getItem("auth-token") === undefined) {
       // Un-Autherized
-      axios.defaults.headers.common["auth-token"] = null;
       history.push("/auth");
       return;
     }
