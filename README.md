@@ -5,15 +5,11 @@
 ![](https://www.code-inspector.com/project/17302/score/svg)
 ![](https://www.code-inspector.com/project/17302/status/svg)
 
->
-
-### Summary
+> ### Summary
 
 This is a **React** based responsive web application, which follows CRUD operations (`Create - Read - Update - Delete`) . The app built upon using **M.E.R.N** development stack
 
->
-
-### Following are the features this app contains
+> ### Features
 
 - User can create an account
 - User can login into the app
@@ -22,9 +18,9 @@ This is a **React** based responsive web application, which follows CRUD operati
 - User can update the the post
 - User can delete the post
 - Finally user can logout
-  > ![preview](https://github.com/phanison898/phanison898/blob/main/sweet-memories-app-preview.PNG)
+  <a href="https://phanison898.github.io/images/sweet-memories/sweet-memories-app-preview.PNG"><img src="https://phanison898.github.io/images/sweet-memories/sweet-memories-app-preview.PNG" width="100px" style="position:absolute;right:15px;top:347px" /></a>
 
-### Technologies used
+> ### Technologies used
 
 - **Front-end**
   - Node.js
@@ -37,6 +33,6 @@ This is a **React** based responsive web application, which follows CRUD operati
 - **Database** - MongoDB (Atlassian)
   >
 
-### Releases
+> ### Releases
 
-- [v1.1.0](https://github.com/phanison898/sweet-memories-app/archive/v1.1.0.zip) <br /> Fully working initial version. User can implement CRUD operations. <br /> `Note`: Yet to implement login/sign-up functionality
+- [#1.1.0](https://github.com/phanison898/sweet-memories-app/archive/v1.1.0.zip "crud model") <br /> Fully working initial version. User can implement CRUD operations. <br /> `Note`: Yet to implement login/sign-up functionality
