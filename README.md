@@ -37,7 +37,8 @@ This is a **React** based responsive web application, which follows CRUD operati
   - Express.js
   - Mongoose.js
   - joi (validations)
-- **Database** - MongoDB (Atlassian)
+- **Database**
+  - MongoDB (Atlassian)
 
 >
 
