@@ -6,7 +6,6 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import rootReducer from "./reducers";
 import "./style.css";
-import axios from "axios";
 
 //axios.defaults.headers["auth-token"] = localStorage.getItem("auth-token");
 

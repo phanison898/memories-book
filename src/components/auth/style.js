@@ -15,8 +15,8 @@ const style = makeStyles((theme) => ({
   paper: {
     width: "420px",
     [theme.breakpoints.down("xs")]: {
-      width: "100%",
-      height: "100%",
+      width: "95vw",
+      height: "98vh",
     },
     height: "80%",
     display: "flex",
@@ -25,7 +25,7 @@ const style = makeStyles((theme) => ({
     alignItems: "center",
     borderRadius: theme.spacing(2),
     overflow: "hidden",
-    //backgroundColor: theme.palette.primary.main,
+    margin: theme.spacing(1),
   },
   nav: {
     width: "100%",

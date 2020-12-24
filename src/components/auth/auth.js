@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Login, SignUp } from "../../actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import axios from "axios";
 import style from "./style";
 
 const Auth = () => {
@@ -27,6 +27,7 @@ const Auth = () => {
   useEffect(() => {
     if (window.localStorage.getItem("auth-token") !== null && window.localStorage.getItem("auth-token") !== undefined) {
       // Authentication success : goto home page
+      axios.defaults.headers.common["auth-token"] = window.localStorage.getItem("auth-token");
       history.push("/");
       return;
     }
