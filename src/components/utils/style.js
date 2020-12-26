@@ -3,43 +3,18 @@ import { blue } from "@material-ui/core/colors";
 
 const style = makeStyles((theme) => ({
   root: {},
-  list: {
-    width: 250,
-    [theme.breakpoints.down("xs")]: {
-      width: "50vw",
-    },
-    "& > *": {
-      "& > a": {
-        textDecoration: "none",
-        color: "black",
-      },
-    },
-  },
-  fullList: {
-    width: "auto",
+  sidebar: {
+    width: "250px",
   },
   details: {
-    position: "relative",
     width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    padding: `${theme.spacing(2)}px 0`,
+    padding: theme.spacing(2),
     backgroundColor: blue[50],
     overflow: "hidden",
-    "& > *": {
-      width: "100%",
-      margin: `${theme.spacing(1) / 2}px 0`,
-    },
-    "& > span": {
-      width: "100%",
-      display: "flex",
-      "& > *": {
-        fontWeight: 600,
-        margin: `0 ${theme.spacing(2)}px`,
-      },
-    },
   },
   profile: {
     width: "100px",
@@ -61,12 +36,42 @@ const style = makeStyles((theme) => ({
       textTransform: "uppercase",
     },
   },
-  pencil: {
+  info: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    color: "grey",
+  },
+  text: {
+    marginLeft: theme.spacing(1),
+  },
+  list: {
+    width: "100%",
+    "& > a": {
+      textDecoration: "none",
+    },
+  },
+  listItems: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    "& > *": {
+      fontSize: 10,
+      color: "black",
+    },
+  },
+  logout: {
+    width: "100%",
     position: "absolute",
-    top: "10%",
-    left: "15%",
-    zIndex: 10000,
-    color: blue[700],
+    bottom: 0,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    color: "black",
+    padding: theme.spacing(1),
+    backgroundColor: blue[200],
   },
 }));
 

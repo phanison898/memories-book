@@ -6,11 +6,15 @@
 
 html {
   overflow: scroll;
+  /* removes horizontal scrolling */
   overflow-x: hidden;
 }
 ::-webkit-scrollbar {
-  width: 0px; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
+  /* Remove scrollbar space */
+  width: 0px;
+
+  /* Makes scrollbar invisible */
+  background: transparent;
 }
 
 body {

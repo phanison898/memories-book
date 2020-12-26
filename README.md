@@ -3,7 +3,8 @@
 <!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/628ed010-ca14-4d49-8b01-004c483c0b40/deploy-status)](https://app.netlify.com/sites/sweet-memories-app/deploys) -->
 
 ![](https://www.code-inspector.com/project/17302/score/svg)
-![](https://www.code-inspector.com/project/17302/status/svg)
+![](https://www.code-inspector.com/project/17302/status/svg)<br />
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/phanison898/sweet-memories-mern-stack-app?style=flat-square)
 
 >
 
@@ -44,6 +45,6 @@ This is a **React** based responsive web application, which follows CRUD operati
 
 ### **`Releases`**
 
-- [#1.1.0](https://github.com/phanison898/sweet-memories-app/archive/v1.1.0.zip "crud model") <br /> Fully working initial version. User can implement CRUD operations. <br /> `Note`: Yet to implement login/sign-up functionality
+- [![#1.1.0](https://img.shields.io/badge/version-1.0.0-green.svg?style=flat-square&logo=appveyor)](https://github.com/phanison898/sweet-memories-app/archive/v1.1.0.zip "crud model") <br /> Fully working initial version. User can implement CRUD operations. <br /> `Note`: Yet to implement login/sign-up functionality
 
 >

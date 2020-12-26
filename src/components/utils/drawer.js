@@ -1,74 +1,78 @@
-import React from "react";
-import clsx from "clsx";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import { Avatar, Divider, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Avatar, Divider, Typography, IconButton } from "@material-ui/core";
 import EmailIcon from "@material-ui/icons/Email";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import CreateIcon from "@material-ui/icons/Create";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import React from "react";
+//-------------local-imports----------//
 import style from "./style";
 
-const MenuDrawer = (props) => {
-  const { isOpen, setIsOpen, listData, name, email } = props;
-
-  const initial = name ? name.charAt(0) : "a";
-
+const MenuDrawer = ({ isOpen, setIsOpen, listData, name, email, handleLogout }) => {
   const classes = style();
 
-  const toggleDrawer = (open) => (event) => {
+  // The initial (first letter of user name) displays in profile pic
+  // If null assign a letter 'a'
+  const initial = name ? name.charAt(0) : "a";
+
+  // Closes the drower, when click
+  const closeDrawer = () => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
-    setIsOpen(open);
+    setIsOpen(false);
   };
 
-  const list = (anchor) => (
-    <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {listData.map(({ name, icon, link, id }) => (
-          <Link to={link} key={id}>
-            <ListItem button key={id}>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={name} />
-            </ListItem>
-          </Link>
-        ))}
-      </List>
-    </div>
+  // Menu opens list
+  const list = () => (
+    <List className={classes.list}>
+      {listData.map(({ name, icon, link, id }) => (
+        <ListItem className={classes.listItems} button key={id}>
+          <ListItemIcon>{icon}</ListItemIcon>
+          <ListItemText primary={name} />
+        </ListItem>
+      ))}
+    </List>
   );
 
   return (
-    <Drawer className={classes.root} anchor="left" open={isOpen} onClose={toggleDrawer(false)}>
-      <div className={classes.details}>
-        <CreateIcon className={classes.pencil} />
-        <div className={classes.profile}>
-          <Avatar variant="circular">{initial}</Avatar>
-          {/* <Avatar variant="circular">
-            <img src={bg} />
-          </Avatar> */}
+    <Drawer className={classes.root} anchor="left" open={isOpen} onClose={closeDrawer()}>
+      <div className={classes.sidebar}>
+        {/* User details and stats */}
+        <div className={classes.details}>
+          {/* Profile picture */}
+          <div className={classes.profile}>
+            <Avatar variant="circular">{initial}</Avatar>
+          </div>
+
+          {/* User name */}
+          <div className={classes.info}>
+            <AccountCircleIcon />
+            <Typography className={classes.text} variant="subtitle1">
+              {name}
+            </Typography>
+          </div>
+
+          {/* User email */}
+          <div className={classes.info}>
+            <EmailIcon />
+            <Typography className={classes.text} variant="subtitle2">
+              {email}
+            </Typography>
+          </div>
         </div>
-        <span className={classes.name}>
-          <AccountCircleIcon color="primary" />
-          <Typography variant="subtitle1">{name}</Typography>
-        </span>
-        <span className={classes.email}>
-          <EmailIcon color="primary" />
-          <Typography variant="subtitle2">{email}</Typography>
-        </span>
+
+        <Divider />
+
+        {/* Menu options list */}
+        {list()}
+
+        {/* Logout */}
+        <div className={classes.logout}>
+          <Typography variant="subtitle1">Exit from the app</Typography>
+          <IconButton onClick={handleLogout()}>
+            <ExitToAppIcon />
+          </IconButton>
+        </div>
       </div>
-      <Divider />
-      {list("left")}
     </Drawer>
   );
 };

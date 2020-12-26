@@ -19,11 +19,12 @@ import { useDispatch } from "react-redux";
 import { DeletePostData } from "../../actions/posts";
 import Style from "./style";
 import { useHistory } from "react-router-dom";
+import Animation from "../../components/LottieHolder/Animation";
+import LoadingAnimation from "../../images/sleeping_polar_bear.json";
+import Upload from "../../components/upload/upload";
 
 const Post = ({ post }) => {
   const { _id, title, description, tags, selectedFile, date } = post;
-  const [tags_data] = tags;
-  const split_tags = tags_data.split(",");
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -51,7 +52,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <Card className={classes.post}>
+    <Card className={classes.card}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -94,7 +95,7 @@ const Post = ({ post }) => {
           {description}
         </Typography>
         <Typography variant="caption" className={classes.tags}>
-          {split_tags.map((tag) => `#${tag.trim()} `)}
+          {tags && tags.map((tag) => <p key={tag}>`#${tag.trim()} `</p>)}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -109,15 +110,19 @@ const Post = ({ post }) => {
   );
 };
 
-const Posts = ({ posts }) => {
+const Posts = ({ posts, isLoading }) => {
   const data = Array.from(posts);
   const postCount = data.length;
   const classes = Style();
 
-  return (
-    <Grid item container xs={12} className={classes.root} direction={postCount > 1 ? "column-reverse" : "column"} alignItems="center" justify="flex-start">
+  return isLoading ? (
+    <Animation src={LoadingAnimation} />
+  ) : (
+    <Grid item container className={classes.root}>
       {data.map((post) => (
-        <Post key={post._id} post={post} />
+        <Grid item key={post._id} className={classes.post}>
+          <Post key={post._id} post={post} />
+        </Grid>
       ))}
     </Grid>
   );

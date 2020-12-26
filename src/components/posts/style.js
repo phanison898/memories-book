@@ -1,35 +1,21 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
 
 const Style = makeStyles((theme) => ({
   root: {
-    padding: `0 ${theme.spacing(4)}px`,
-    paddingTop: theme.spacing(2),
-    [theme.breakpoints.down("md")]: {
-      padding: 0,
-    },
+    width: "100%",
+    height: "100%",
+    display: "flex",
   },
   post: {
-    width: "inherit",
-    marginBottom: theme.spacing(2),
-    [theme.breakpoints.down("md")]: {
-      marginBottom: theme.spacing(1),
-    },
-    borderRadius: 0,
-    boxSizing: "border-box",
+    width: "100%",
+  },
+  card: {
+    borderRadius: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
-    cursor: "pointer",
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-  tags: {
-    color: "green",
-    fontWeight: "600",
-    cursor: "pointer",
+    width: "100%",
+    height: "300px",
   },
 }));
 

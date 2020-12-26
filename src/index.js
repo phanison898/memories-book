@@ -3,16 +3,16 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import React from "react";
 import ReactDOM from "react-dom";
+//--------------local-imports-------------//
 import App from "./App";
 import rootReducer from "./reducers";
 import "./style.css";
 
-//axios.defaults.headers["auth-token"] = localStorage.getItem("auth-token");
-
-// R E D U X  <--->  S T O R E
+// Enables Redux-Store chrome extention in browser
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// R E D U X - S T O R E
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
-// R E D U X  <--->  S T O R E
 
 ReactDOM.render(
   <Provider store={store}>

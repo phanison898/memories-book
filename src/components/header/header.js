@@ -1,63 +1,34 @@
 import React, { useState, useEffect } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import InputBase from "@material-ui/core/InputBase";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import SettingsIcon from "@material-ui/icons/Settings";
-import HomeIcon from "@material-ui/icons/Home";
-import NoteAddIcon from "@material-ui/icons/NoteAdd";
-import MenuDrawer from "../../components/utils/drawer";
-import Style from "./style";
-import { GetUser, Logout } from "../../actions/users";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { AppBar, Toolbar, IconButton, Badge, TextField } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
+//----------------------local-hosts---------------------//
+import { GetUser, Logout } from "../../actions/users";
+import MenuDrawer from "../../components/utils/drawer";
+import MenuItems from "./menuOptions";
+import Style from "./style";
 
-const Header = () => {
+const Header = ({ postsCount, posts }) => {
   const classes = Style();
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  // logged in user email & name
   const { email, name } = useSelector((state) => state.users.userDetails);
-  const { status } = useSelector((state) => state.users.switch);
 
   useEffect(() => {
-    if (window.localStorage.getItem("auth-token") === null || window.localStorage.getItem("auth-token") === undefined) {
-      // Un-Autherized
-      history.push("/auth");
-      return;
-    }
+    // gets user details from server (email & name)
     dispatch(GetUser());
-  }, [status]);
+  }, []);
 
   const [isOpen, setIsOpen] = useState(false);
-  const menu = [
-    {
-      id: 1,
-      icon: <HomeIcon />,
-      name: "Home",
-      link: "/",
-    },
-    {
-      id: 2,
-      icon: <NoteAddIcon />,
-      name: "Add Memory",
-      link: "/add",
-    },
-    {
-      id: 3,
-      icon: <SettingsIcon />,
-      name: "settings",
-      link: "/settings",
-    },
-  ];
 
   const handleMenuClick = () => {
     setIsOpen(!isOpen);
   };
 
-  const HandleLogout = () => {
+  const handleLogout = () => {
     try {
       dispatch(Logout());
     } catch (error) {
@@ -65,40 +36,54 @@ const Header = () => {
     }
   };
 
+  // const options = Array.from(posts).map((option) => {
+  //   const firstLetter = option.title[0];
+  //   return {
+  //     firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
+  //     ...option,
+  //   };
+  // });
+
   return (
     <>
+      {/* Header bar*/}
       <AppBar position="static">
         <Toolbar className={classes.root}>
-          <div className={classes.left}>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="open drawer" onClick={handleMenuClick}>
+          {/* Menu icon */}
+          <div className={classes.menu}>
+            <IconButton edge="start" color="inherit" aria-label="open drawer" onClick={handleMenuClick}>
               <MenuIcon />
             </IconButton>
           </div>
 
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
+          {/* Search box */}
+          <div className={classes.searchBox}>
+            {/* <Autocomplete
+              id="posts"
+              inputValue={inputValue}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue);
               }}
-              inputProps={{ "aria-label": "search" }}
-            />
+              options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+              groupBy={(option) => option.firstLetter}
+              getOptionSelected={(option, value) => option.title[0] === value.firstLetter}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => <TextField {...params} label="Search posts by name..." variant="outlined" />}
+            /> */}
           </div>
 
-          <div className={classes.right}>
-            <IconButton onClick={HandleLogout}>
-              <ExitToAppIcon />
-            </IconButton>
+          {/* Posts count icon */}
+          <div className={classes.menu}>
+            <Badge badgeContent={postsCount} color="secondary">
+              <PhotoLibraryIcon />
+            </Badge>
           </div>
         </Toolbar>
       </AppBar>
-      <MenuDrawer isOpen={isOpen} setIsOpen={setIsOpen} listData={menu} name={name} email={email} />
+
+      {/* Menu seaction : opens when user clicks menu icon*/}
+      <MenuDrawer isOpen={isOpen} setIsOpen={setIsOpen} listData={MenuItems} name={name} email={email} handleLogout={() => handleLogout} />
     </>
   );
 };
-
 export default Header;

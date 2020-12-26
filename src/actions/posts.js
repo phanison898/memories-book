@@ -14,7 +14,7 @@ export const SendPostData = (post) => async (dispatch) => {
     const { data } = await api.CreatePost(post);
     dispatch({ type: "CREATE", payload: data });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
 

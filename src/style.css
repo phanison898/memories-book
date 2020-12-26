@@ -1,20 +1,21 @@
 * {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
   margin: 0%;
   padding: 0%;
 }
 
 html {
   overflow: scroll;
+  /* removes horizontal scrolling */
   overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
   /* Remove scrollbar space */
+  width: 0px;
+  /* Makes scrollbar invisible */
   background: transparent;
-  /* Optional: just make scrollbar invisible */
 }
 
 body {

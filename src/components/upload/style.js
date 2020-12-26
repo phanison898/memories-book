@@ -1,0 +1,100 @@
+import { makeStyles } from "@material-ui/core/styles";
+
+const style = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    height: "auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
+    overflow: "hidden",
+    backgroundColor: "white",
+    zIndex: 1000,
+  },
+  box: {
+    width: "100%",
+    height: "35px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "lightgrey",
+    borderRadius: theme.spacing(1),
+    overflow: "hidden",
+  },
+  icon: {
+    flex: 0.1,
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "& > label": {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  },
+  form: {
+    flex: 0.8,
+    height: "100px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "& > *": {
+      width: "100%",
+      height: "100%",
+      outline: 0,
+      border: 0,
+      color: "black",
+      fontSize: "16px",
+      fontWeight: "400",
+      backgroundColor: "transparent",
+    },
+  },
+  uploadButton: {
+    flex: 0.1,
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: theme.palette.primary.main,
+    color: "white",
+    cursor: "pointer",
+  },
+  options: {
+    width: "90%",
+    height: "50px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    "& > label": {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      cursor: "pointer",
+    },
+  },
+  image: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: `${theme.spacing(1)}px 0`,
+    "& > img": {
+      width: "80%",
+      height: "auto",
+    },
+  },
+  textFields: {
+    width: "80%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    "& > *": {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
+export default style;
