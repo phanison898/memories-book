@@ -127,6 +127,7 @@ const Upload = () => {
               label="Description"
               fullWidth
               required
+              multiline
               value={data.description}
               onChange={(e) => setData({ ...data, description: e.target.value })}
               InputProps={{
