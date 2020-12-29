@@ -12,7 +12,7 @@ export const GetPostData = () => async (dispatch) => {
 export const SendPostData = (post) => async (dispatch) => {
   try {
     const { data } = await api.CreatePost(post);
-    dispatch({ type: "CREATE", payload: data });
+    dispatch({ type: "CREATE", payload: data.post });
   } catch (error) {
     console.log(error);
   }

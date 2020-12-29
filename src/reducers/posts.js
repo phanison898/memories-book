@@ -1,4 +1,3 @@
-// Posts Reducer
 const postsReducer = (state = {}, action) => {
   switch (action.type) {
     case "FETCH_ALL":

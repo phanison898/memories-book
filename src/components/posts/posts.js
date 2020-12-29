@@ -50,7 +50,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} key={_id}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -108,11 +108,11 @@ const Post = ({ post }) => {
   );
 };
 
-const Posts = ({ posts, isLoading }) => {
+const Posts = ({ posts }) => {
   const data = Array.from(posts);
   const classes = Style();
 
-  return isLoading
+  return data.length === 0
     ? [1, 2, 3, 4].map((p) => (
         <Grid item className={classes.post} key={p}>
           <PostSkeleton />

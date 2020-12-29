@@ -17,6 +17,7 @@ import imageCompression from "browser-image-compression";
 import { SendPostData, UpdatePostById } from "../../actions/posts";
 import Style from "./style";
 import { useHistory, useParams } from "react-router-dom";
+import CustomAlert from "../../components/utils/CustomAlert";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -35,14 +36,11 @@ const Form = () => {
   });
 
   useEffect(() => {
-    // if (id !== undefined) {
-    //   const [{ title, description, tags, selectedFile }] = posts.filter((post) => post._id === id);
-    //   setData({ ...data, title: title, description: description, tags: tags, selectedFile: selectedFile });
-    // }
-    // if (Array.from(posts.length > prevPostsCount)) {
-    //   history.push("/home");
-    //   onResetHandler();
-    // }
+    const post = posts.find((p) => p.title === data.title);
+    if (post) {
+      onResetHandler();
+      history.push("/home");
+    }
   }, [posts]);
 
   const schema = Joi.object().shape({
@@ -86,9 +84,6 @@ const Form = () => {
     };
     try {
       compressedFile = await imageCompression(image, options);
-      console.log("compressedFile instanceof Blob", compressedFile instanceof Blob); // true
-      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
-      console.log(compressedFile);
     } catch (error) {
       console.log(error);
     }
