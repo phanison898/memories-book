@@ -1,17 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation, Switch, Route } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 //--------------[ L O C A L -- I M P O R T S ]-------------//
 import { GetPostData } from "../../actions/posts";
 import Header from "../../components/header/header";
-import Upload from "../../components/upload/upload";
+import NavBar from "../../components/navbar/navbar";
 import Posts from "../../components/posts/posts";
+import Form from "../../components/form/form";
 import style from "./style";
 
 const Home = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
 
   // getting all posts from redux store
   const posts = useSelector((state) => state.posts);
@@ -19,11 +21,24 @@ const Home = () => {
   // posts count
   const postsCount = Array.from(posts).length;
 
-  // value entered in search box
-  const [inputValue, setInputValue] = useState("");
+  // current route/component
+  const [currentPath, setCurrentPath] = useState("/home");
+
+  //toggle header on scroll
+  const [prevPosition, setPrevPosition] = useState(window.pageYOffset);
+
+  const [pos, setPos] = useState("0");
+
+  window.onscroll = () => {
+    const currPosition = window.pageYOffset;
+    prevPosition > currPosition ? setPos("0") : setPos("-100px");
+    setPrevPosition(currPosition);
+  };
 
   // new filtered posts
-  const [newPosts, setNewPosts] = useState({});
+  const [newPosts, setNewPosts] = useState(posts);
+
+  const [open, setOpen] = useState(false);
 
   // status : it is a redux store property, which gets unique id
   // (uuid) value, every time login or logout button clicked
@@ -69,26 +84,38 @@ const Home = () => {
     // posts are not zero meaning posts fetched successfully
     // then set loading animation to false
     setIsLoading(false);
+    setNewPosts(posts);
   }, [status, posts]);
+
+  const Component = (path) => {
+    switch (path) {
+      case "/home":
+        return <Posts posts={posts} isLoading={isLoading} />;
+      case "/home/add":
+        return <h2>Add post</h2>;
+      case "/home/user":
+        return <h2>User dashboard</h2>;
+      default:
+        break;
+    }
+  };
 
   const classes = style();
   return (
-    // only if authorized --> displays home page
     isAuthorized() && (
       <Grid container className={classes.root}>
-        {/*Header section*/}
         <Grid item className={classes.header}>
-          <Header postsCount={postsCount} posts={posts} />
+          <Header />
+          <NavBar />
         </Grid>
 
-        <Grid item container className={classes.body}>
-          {/*Upload section*/}
-          <Grid item className={classes.upload}>
-            <Upload />
-          </Grid>
-
-          {/*Posts section*/}
-          <Posts posts={posts} isLoading={isLoading} />
+        <Grid item container className={classes.feed} direction="column-reverse">
+          {/* {Component(currentPath)} */}
+          <Switch>
+            <Route exact path="/home" render={() => <Posts posts={newPosts} isLoading={isLoading} />} />
+            <Route exact path="/home/add" component={Form} />
+            <Route exact path="/home/user" render={() => <h2>user dashboard</h2>} />
+          </Switch>
         </Grid>
       </Grid>
     )

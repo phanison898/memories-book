@@ -1,30 +1,24 @@
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const Style = makeStyles((theme) => ({
-  root: {
+  header: {
+    position: "fixed",
+    top: 0,
+    width: "100vw",
     height: "8vh",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    borderRadius: 0,
+    padding: `0 ${theme.spacing(2)}px`,
+    backgroundColor: theme.palette.info.dark,
   },
-  menu: {
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
+  header__title: {
+    color: "white",
+    fontFamily: "pacifico",
   },
-  searchBox: {
-    width: "540px",
-    height: "60%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "lightgrey",
-    borderRadius: theme.spacing(1),
-    overflow: "hidden",
-    "& > *": {
-      width: "100%",
-      backgroundColor: "white",
-    },
+  header__postsCount: {
+    color: "white",
   },
 }));
 

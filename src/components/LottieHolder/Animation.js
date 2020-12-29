@@ -5,7 +5,7 @@ import lottie from "lottie-web";
 const styles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    height: "100vh",
+    height: "inherit",
   },
 }));
 

@@ -19,9 +19,7 @@ import { useDispatch } from "react-redux";
 import { DeletePostData } from "../../actions/posts";
 import Style from "./style";
 import { useHistory } from "react-router-dom";
-import Animation from "../../components/LottieHolder/Animation";
-import LoadingAnimation from "../../images/sleeping_polar_bear.json";
-import Upload from "../../components/upload/upload";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const Post = ({ post }) => {
   const { _id, title, description, tags, selectedFile, date } = post;
@@ -112,19 +110,38 @@ const Post = ({ post }) => {
 
 const Posts = ({ posts, isLoading }) => {
   const data = Array.from(posts);
-  const postCount = data.length;
   const classes = Style();
 
-  return isLoading ? (
-    <Animation src={LoadingAnimation} />
-  ) : (
-    <Grid item container className={classes.root}>
-      {data.map((post) => (
+  return isLoading
+    ? [1, 2, 3, 4].map((p) => (
+        <Grid item className={classes.post} key={p}>
+          <PostSkeleton />
+        </Grid>
+      ))
+    : data.map((post) => (
         <Grid item key={post._id} className={classes.post}>
           <Post key={post._id} post={post} />
         </Grid>
-      ))}
-    </Grid>
+      ));
+};
+
+export const PostSkeleton = () => {
+  const classes = Style();
+
+  return (
+    <Card className={classes.skeleton}>
+      <CardHeader avatar={<Skeleton variant="circle" width={50} height={50} />} title={<Skeleton variant="text" width={100} height={20} />} subheader={<Skeleton variant="text" width={50} height={20} />} />
+
+      <CardMedia>
+        <Skeleton variant="rect" width={550} height={300} />
+      </CardMedia>
+
+      <CardContent>
+        <Skeleton variant="text" />
+        <Skeleton variant="text" />
+        <Skeleton variant="text" width={200} height={20} />
+      </CardContent>
+    </Card>
   );
 };
 

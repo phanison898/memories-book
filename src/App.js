@@ -1,29 +1,41 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import { Offline, Online } from "react-detect-offline";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 //--------------local-imports-------------//
 import Animation from "./components/LottieHolder/Animation";
 import OfflineAnimation from "./images/offline.json";
 import PageNotFound from "./images/404.json";
 import Auth from "./components/auth/auth";
 import Home from "./pages/home/home";
-import Form from "./components/form/form";
 
 const App = () => {
+  const { theme } = useSelector((state) => state.util);
+
+  const [themeStatus, setThemeStatus] = useState(theme);
+
+  const MuiTheme = createMuiTheme({
+    palette: {
+      type: themeStatus ? "dark" : "light",
+    },
+  });
+
+  useEffect(() => {
+    setThemeStatus(theme);
+  }, [theme]);
+
   return (
-    <>
+    <ThemeProvider theme={MuiTheme}>
       {/* if online --> displays our application */}
       <Online>
-        {console.log(`${process.env.PUBLIC_URL}/robots.txt`)}
         <Router>
           <Switch>
             {/* Path to Home page */}
-            <Route exact path="/" component={Home} />
+            <Route path="/home" component={Home} />
 
             {/* Path to authentication page (login/sign-up) */}
             <Route path="/auth" component={Auth} />
-
-            {/* Path to add post page*/}
-            <Route path="/add" component={Form} />
 
             {/* default Path... if user enter non exiting path
              * loads 404 page not found page
@@ -37,7 +49,7 @@ const App = () => {
       <Offline>
         <Animation src={OfflineAnimation} />
       </Offline>
-    </>
+    </ThemeProvider>
   );
 };
 export default App;

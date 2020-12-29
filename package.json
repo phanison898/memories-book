@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
+    "browser-image-compression": "^1.0.13",
     "dotenv": "^8.2.0",
     "joi": "^17.3.0",
     "lottie-web": "^5.7.5",

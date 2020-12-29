@@ -11,7 +11,7 @@ import { useState } from "react";
 import * as Joi from "yup";
 import { SendPostData } from "../../actions/posts";
 
-const Upload = () => {
+const Upload = ({ setOpen }) => {
   const classes = style();
   const dispatch = useDispatch();
 
@@ -90,7 +90,7 @@ const Upload = () => {
   };
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} onClick={() => setOpen(true)}>
       {/* add memory box */}
       <div className={classes.box}>
         {/* image icon */}

@@ -1,4 +1,6 @@
-import { Paper, TextField, Button, Typography } from "@material-ui/core";
+import { Paper, TextField, Button, Typography, IconButton, Backdrop } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { Login, SignUp } from "../../actions/users";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,22 +25,22 @@ const Auth = () => {
 
   const [isLogin, setIsLogin] = useState(true);
 
+  const [open, setOpen] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
+
   useEffect(() => {
     if (window.localStorage.getItem("auth-token") !== null && window.localStorage.getItem("auth-token") !== undefined) {
-      // Authentication success : goto home page
-      history.push("/");
+      setTimeout(() => {
+        history.push("/home");
+      }, 2000);
       return;
     }
   }, [switching]);
 
   const onLoginSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      dispatch(Login(loginData));
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(Login(loginData));
+    setOpen(true);
   };
 
   const onSignUpSubmit = (e) => {
@@ -82,9 +84,29 @@ const Auth = () => {
           <form noValidate autoComplete="off" className={classes.form} onSubmit={onLoginSubmit}>
             <TextField required label="email" type="email" variant="standard" fullWidth value={loginData.email} onChange={(e) => setLoginData({ ...loginData, email: e.target.value })} />
             <TextField required label="password" type="password" variant="standard" fullWidth value={loginData.password} onChange={(e) => setLoginData({ ...loginData, password: e.target.value })} />
-            <Typography variant="caption" className={classes.error}>
-              {!authStatus && message}
-            </Typography>
+            {open && message !== "" && (
+              <Backdrop open={true} style={{ zIndex: 1000 }}>
+                <Alert
+                  severity={authStatus ? "success" : "error"}
+                  action={
+                    <IconButton
+                      aria-label="close"
+                      color="inherit"
+                      size="small"
+                      onClick={() => {
+                        setOpen(false);
+                      }}
+                    >
+                      <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                  }
+                >
+                  <AlertTitle>{authStatus ? "Login Success" : "Login Failed"}</AlertTitle>
+                  <strong>{message}</strong>
+                </Alert>
+              </Backdrop>
+            )}
+
             <Button type="submit" size="large" fullWidth variant="contained" color="primary">
               Submit
             </Button>
