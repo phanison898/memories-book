@@ -1,9 +1,6 @@
 ## **`SWEET-MEMORIES-APP`**
 
-<!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/628ed010-ca14-4d49-8b01-004c483c0b40/deploy-status)](https://app.netlify.com/sites/sweet-memories-app/deploys) -->
-
-![](https://www.code-inspector.com/project/17302/score/svg)
-![](https://www.code-inspector.com/project/17302/status/svg)<br />
+[![Netlify Status](https://api.netlify.com/api/v1/badges/628ed010-ca14-4d49-8b01-004c483c0b40/deploy-status)](https://app.netlify.com/sites/sweet-memories-app/deploys)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/phanison898/sweet-memories-mern-stack-app?style=flat-square)
 
 >
