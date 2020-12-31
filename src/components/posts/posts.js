@@ -21,7 +21,7 @@ import { useHistory } from "react-router-dom";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { useSpring, animated } from "react-spring";
 
-const Post = ({ post }) => {
+const Post = ({ post, url }) => {
   const { _id, title, description, tags, selectedFile, date } = post;
 
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const Post = ({ post }) => {
 
   const clickEdit = () => {
     closeMenuHandle();
-    history.push(`home/edit?postId=${_id}`);
+    history.push(`${url}/edit?postId=${_id}`);
   };
 
   return (
@@ -108,7 +108,7 @@ const Post = ({ post }) => {
   );
 };
 
-const Posts = ({ posts }) => {
+const Posts = ({ posts, url }) => {
   const data = Array.from(posts);
   const classes = Style();
   const props = useSpring({
@@ -125,7 +125,7 @@ const Posts = ({ posts }) => {
   ) : (
     data.map((post) => (
       <animated.div style={props} key={post._id}>
-        <Post key={post._id} post={post} className={classes.post} />
+        <Post key={post._id} post={post} className={classes.post} url={url} />
       </animated.div>
     ))
   );

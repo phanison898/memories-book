@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useHistory, Switch, Route } from "react-router-dom";
 import { Grid, Paper } from "@material-ui/core";
 //--------------[ L O C A L -- I M P O R T S ]-------------//
@@ -12,9 +12,10 @@ import AddPost from "../../components/upload/addPost";
 import EditPost from "../../components/upload/editPost";
 import style from "./style";
 
-const Home = () => {
+const Home = ({ match }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { url, path } = match;
 
   const posts = useSelector((state) => state.posts.get);
 
@@ -43,16 +44,16 @@ const Home = () => {
       <Grid container className={classes.root}>
         <Grid item className={classes.header}>
           <Header />
-          <NavBar />
+          <NavBar url={url} />
         </Grid>
 
         <Paper className={classes.body}>
           <Paper className={classes.feed}>
             <Switch>
-              <Route exact path="/home" render={() => <Posts posts={posts} />} />
-              <Route exact path="/home/add" render={() => <AddPost />} />
-              <Route exact path="/home/edit" render={() => <EditPost />} />
-              <Route exact path="/home/user" render={() => <Profile />} />
+              <Route exact path={`${path}`} render={() => <Posts posts={posts} url={url} />} />
+              <Route exact path={`${path}/add`} render={() => <AddPost url={url} />} />
+              <Route exact path={`${path}/edit`} render={() => <EditPost url={url} />} />
+              <Route exact path={`${path}/dashboard`} render={() => <Profile />} />
             </Switch>
           </Paper>
         </Paper>

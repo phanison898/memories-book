@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { SendPostData, CleanCreate } from "../../actions/posts";
 import PostForm from "./postForm";
 
-const Form = () => {
+const Form = ({ url }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { create } = useSelector((state) => state.posts);
@@ -20,7 +20,7 @@ const Form = () => {
 
   useEffect(() => {
     if (status) {
-      history.push("/home");
+      history.push(`${url}`);
     } else {
       console.log("there is some problem :- [ " + message + " ]");
     }

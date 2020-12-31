@@ -14,6 +14,7 @@ const App = () => {
   const { theme } = useSelector((state) => state.util);
 
   const [themeStatus, setThemeStatus] = useState(theme);
+  const [username, setUsername] = useState(window.localStorage.getItem("username"));
 
   const MuiTheme = createMuiTheme({
     palette: {
@@ -32,10 +33,10 @@ const App = () => {
         <Router>
           <Switch>
             {/* Path to Home page */}
-            <Route path="/home" component={Home} />
+            <Route path={`/${username}`} render={({ match }) => <Home match={match} />} />
 
             {/* Path to authentication page (login/sign-up) */}
-            <Route exact path="/" component={Auth} />
+            <Route exact path="/" render={() => <Auth setUsername={setUsername} />} />
 
             {/* default Path... if user enter non exiting path
              * loads 404 page not found page

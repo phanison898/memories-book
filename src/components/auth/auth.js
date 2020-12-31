@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import style from "./style";
 
-const Auth = () => {
+const Auth = ({ setUsername }) => {
   const classes = style();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -28,9 +28,12 @@ const Auth = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (window.localStorage.getItem("auth-token") !== null && window.localStorage.getItem("auth-token") !== undefined) {
+    const auth_token = window.localStorage.getItem("auth-token");
+    const username = window.localStorage.getItem("username");
+    if (auth_token !== null && auth_token !== undefined) {
       setTimeout(() => {
-        history.push("/home");
+        setUsername(username);
+        history.push(`/${username}`);
       }, 2000);
       return;
     }

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { UpdatePostById, CleanUpdate } from "../../actions/posts";
 import PostForm from "./postForm";
 
-const EditPost = () => {
+const EditPost = ({ url }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -29,7 +29,7 @@ const EditPost = () => {
 
   useEffect(() => {
     if (status) {
-      history.push("/home");
+      history.push(`${url}`);
     } else {
       console.log("there is some problem :- [ " + message + " ]");
     }

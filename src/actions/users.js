@@ -38,6 +38,7 @@ export const Login = (loginData) => async (dispatch) => {
     }
     if (responseData.status) {
       window.localStorage.setItem("auth-token", responseData.token);
+      window.localStorage.setItem("username", responseData.username);
     }
     dispatch({
       type: "LOGIN",
@@ -55,6 +56,7 @@ export const Login = (loginData) => async (dispatch) => {
 
 export const Logout = () => async (dispatch) => {
   window.localStorage.removeItem("auth-token");
+  window.localStorage.removeItem("username");
 
   try {
     dispatch({

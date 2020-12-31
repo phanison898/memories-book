@@ -14,7 +14,7 @@ import { ChangeTheme } from "../../actions/util";
 import MenuDrawer from "../../components/drawer/drawer";
 import style from "./style";
 
-const NavBar = () => {
+const NavBar = ({ url }) => {
   const classes = style();
   const dispatch = useDispatch();
 
@@ -47,13 +47,13 @@ const NavBar = () => {
         <Link to="#" onClick={handleMenuClick}>
           <MenuIcon />
         </Link>
-        <Link to="/home">
+        <Link to={`${url}`}>
           <HomeIcon />
         </Link>
-        <Link to="/home/add">
+        <Link to={`${url}/add`}>
           <AddCircleOutlineIcon />
         </Link>
-        <Link to="/home/user">
+        <Link to={`${url}/dashboard`}>
           <AccountCircleIcon />
         </Link>
         <Link to="#" onClick={() => dispatch(ChangeTheme(!theme))}>
