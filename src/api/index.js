@@ -4,6 +4,8 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 // POSTS
 
+export const FetchPostCount = () => axios.get("/posts/count", Header());
+
 export const FetchPosts = () => axios.get("/posts", Header());
 
 export const CreatePost = (newPostData) => axios.post("/posts", newPostData, Header());

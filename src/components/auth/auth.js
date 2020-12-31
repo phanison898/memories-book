@@ -26,7 +26,6 @@ const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   const [open, setOpen] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
 
   useEffect(() => {
     if (window.localStorage.getItem("auth-token") !== null && window.localStorage.getItem("auth-token") !== undefined) {

@@ -5,6 +5,10 @@ const style = makeStyles((theme) => ({
   root: {},
   sidebar: {
     width: "250px",
+    [theme.breakpoints.down("xs")]: {
+      width: "60vw",
+    },
+    borderRadius: 0,
   },
   details: {
     width: "100%",
@@ -12,8 +16,8 @@ const style = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 0,
     padding: theme.spacing(2),
-    backgroundColor: blue[50],
     overflow: "hidden",
   },
   profile: {
@@ -30,7 +34,6 @@ const style = makeStyles((theme) => ({
       justifyContent: "center",
       alignItems: "center",
       boxShadow: "0px 1px 2px black",
-      color: "grey",
       fontSize: "4rem",
       fontWeight: 600,
       textTransform: "uppercase",
@@ -41,26 +44,9 @@ const style = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "center",
-    color: "grey",
   },
   text: {
     marginLeft: theme.spacing(1),
-  },
-  list: {
-    width: "100%",
-    "& > a": {
-      textDecoration: "none",
-    },
-  },
-  listItems: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    "& > *": {
-      fontSize: 10,
-      color: "black",
-    },
   },
   logout: {
     width: "100%",
@@ -70,6 +56,7 @@ const style = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     color: "black",
+    borderRadius: 0,
     padding: theme.spacing(1),
     backgroundColor: blue[200],
   },

@@ -7,7 +7,7 @@ import Style from "./style";
 
 const Header = () => {
   const classes = Style();
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts.get);
   const postsCount = Array.from(posts).length;
 
   return (

@@ -5,8 +5,13 @@ const Style = makeStyles((theme) => ({
     width: "80%",
     height: "300px",
   },
+  posts: {
+    width: "100%",
+    height: "auto",
+  },
   post: {
     width: "100%",
+    height: "auto",
   },
   card: {
     borderRadius: 0,
@@ -19,6 +24,10 @@ const Style = makeStyles((theme) => ({
     objectFit: "contain",
     width: "100%",
     height: "300px",
+  },
+  tags: {
+    color: theme.palette.success.dark,
+    cursor: "pointer",
   },
   skeleton: {
     marginBottom: theme.spacing(1),

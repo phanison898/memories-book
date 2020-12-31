@@ -9,11 +9,8 @@ import style from "./style";
 const MenuDrawer = ({ isOpen, setIsOpen, name, email, handleLogout }) => {
   const classes = style();
 
-  // The initial (first letter of user name) displays in profile pic
-  // If null assign a letter 'a'
   const initial = name ? name.charAt(0) : "a";
 
-  // Closes the drower, when click
   const closeDrawer = () => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
@@ -23,9 +20,9 @@ const MenuDrawer = ({ isOpen, setIsOpen, name, email, handleLogout }) => {
 
   return (
     <Drawer className={classes.root} anchor="left" open={isOpen} onClose={closeDrawer()}>
-      <Paper className={classes.sidebar}>
+      <Paper elevation={0} className={classes.sidebar}>
         {/* User details and stats */}
-        <div className={classes.details}>
+        <Paper className={classes.details}>
           {/* Profile picture */}
           <div className={classes.profile}>
             <Avatar variant="circular">{initial}</Avatar>
@@ -46,17 +43,17 @@ const MenuDrawer = ({ isOpen, setIsOpen, name, email, handleLogout }) => {
               {email}
             </Typography>
           </div>
-        </div>
+        </Paper>
 
         <Divider />
 
         {/* Logout */}
-        <div className={classes.logout}>
+        <Paper className={classes.logout}>
           <Typography variant="subtitle1">Exit from the app</Typography>
           <IconButton onClick={handleLogout()}>
             <ExitToAppIcon />
           </IconButton>
-        </div>
+        </Paper>
       </Paper>
     </Drawer>
   );

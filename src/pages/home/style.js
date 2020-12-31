@@ -1,3 +1,4 @@
+import { lightGreen } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 const style = makeStyles((theme) => ({
@@ -19,17 +20,29 @@ const style = makeStyles((theme) => ({
     alignItems: "center",
     zIndex: 2,
   },
+  body: {
+    width: "100vw",
+    height: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 0,
+    boxShadow: "none",
+    backgroundColor: "grey",
+    zIndex: 1,
+  },
   feed: {
-    position: "absolute",
-    top: "8vh",
     width: "550px",
     [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
-    height: "auto",
+    height: "100vh",
     display: "flex",
-    alignItems: "flex-start",
-    zIndex: 1,
+    flexDirection: "column",
+    paddingTop: "8vh",
+    borderRadius: 0,
+    boxShadow: "none",
+    overflowY: "scroll",
   },
 }));
 

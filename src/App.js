@@ -35,7 +35,7 @@ const App = () => {
             <Route path="/home" component={Home} />
 
             {/* Path to authentication page (login/sign-up) */}
-            <Route path="/auth" component={Auth} />
+            <Route exact path="/" component={Auth} />
 
             {/* default Path... if user enter non exiting path
              * loads 404 page not found page

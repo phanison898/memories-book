@@ -1,100 +1,121 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { grey } from "@material-ui/core/colors";
 
-const style = makeStyles((theme) => ({
+const Style = makeStyles((theme) => ({
   root: {
     width: "100%",
-    height: "auto",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
-    overflow: "hidden",
-    backgroundColor: "white",
-    zIndex: 1000,
-  },
-  box: {
-    width: "100%",
-    height: "35px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "lightgrey",
-    borderRadius: theme.spacing(1),
-    overflow: "hidden",
-  },
-  icon: {
-    flex: 0.1,
     height: "100%",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    "& > label": {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
+    flexDirection: "column",
+    borderRadius: 0,
+    //paddingBottom: "8vh",
   },
   form: {
-    flex: 0.8,
-    height: "100px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    "& > *": {
+    width: "100%",
+    flex: 0.92,
+    borderRadius: 0,
+    boxShadow: "none",
+    "& > form": {
       width: "100%",
       height: "100%",
-      outline: 0,
-      border: 0,
-      color: "black",
-      fontSize: "16px",
-      fontWeight: "400",
-      backgroundColor: "transparent",
+      display: "flex",
+      flexDirection: "column",
+      padding: theme.spacing(0, 1),
     },
   },
-  uploadButton: {
+  form__header: {
+    width: "100%",
     flex: 0.1,
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: theme.palette.primary.main,
-    color: "white",
-    cursor: "pointer",
-  },
-  options: {
-    width: "90%",
-    height: "50px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    "& > label": {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      cursor: "pointer",
-    },
   },
-  image: {
+  header__title: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: `${theme.spacing(1)}px 0`,
-    "& > img": {
-      width: "80%",
-      height: "auto",
+    fontWeight: 600,
+    "& > *": {
+      marginRight: theme.spacing(1),
     },
   },
-  textFields: {
-    width: "80%",
+  header__post__button: {
+    cursor: "pointer",
+    display: "block",
+  },
+  form__title: {
+    width: "100%",
+    flex: 0.1,
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    margin: theme.spacing(1, 0),
+    "& > *": {
+      marginRight: theme.spacing(1),
+    },
+  },
+  form__description: {
+    width: "100%",
+    flex: 0.2,
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    "& > *": {
+      marginRight: theme.spacing(1),
+    },
+  },
+  form__tags: {
+    width: "100%",
+    flex: 0.1,
+    display: "flex",
+    justifyContent: "flex-start",
     alignItems: "center",
     "& > *": {
-      marginTop: theme.spacing(2),
+      marginRight: theme.spacing(1),
+    },
+  },
+  form__upload: {
+    width: "100%",
+    flex: 0.5,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  uploaded_image: {
+    width: "100%",
+    height: "300px",
+    borderRadius: 0,
+    boxShadow: "none",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "& > img": {
+      objectFit: "cover",
+      height: "100%",
+    },
+  },
+  bottom__tools: {
+    width: "100%",
+    flex: 0.08,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderRadius: 0,
+    boxShadow: "none",
+    padding: theme.spacing(1),
+    "& > h6": {
+      fontSize: "15px",
+      flex: 0.7,
+      color: "lightgrey",
+      marginLeft: theme.spacing(4),
+    },
+    "& > label": {
+      flex: 0.3,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
     },
   },
 }));
 
-export default style;
+export default Style;

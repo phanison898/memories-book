@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -10,16 +10,16 @@ import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Grid from "@material-ui/core/Grid";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import moment from "moment";
-import { Menu, MenuItem, Tooltip } from "@material-ui/core";
+import { Menu, MenuItem, Tooltip, Grid } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { DeletePostData } from "../../actions/posts";
 import Style from "./style";
 import { useHistory } from "react-router-dom";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { useSpring, animated } from "react-spring";
 
 const Post = ({ post }) => {
   const { _id, title, description, tags, selectedFile, date } = post;
@@ -46,7 +46,7 @@ const Post = ({ post }) => {
 
   const clickEdit = () => {
     closeMenuHandle();
-    history.push(`/edit/${_id}`);
+    history.push(`home/edit?postId=${_id}`);
   };
 
   return (
@@ -93,7 +93,7 @@ const Post = ({ post }) => {
           {description}
         </Typography>
         <Typography variant="caption" className={classes.tags}>
-          {tags && tags.map((tag) => <p key={tag}>`#${tag.trim()} `</p>)}
+          {tags && tags.map((tag) => <p key={tag}>#{tag}</p>)}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -111,25 +111,31 @@ const Post = ({ post }) => {
 const Posts = ({ posts }) => {
   const data = Array.from(posts);
   const classes = Style();
+  const props = useSpring({
+    width: "100%",
+    height: "100%",
+    opacity: 1,
+    from: {
+      opacity: 0,
+    },
+  });
 
-  return data.length === 0
-    ? [1, 2, 3, 4].map((p) => (
-        <Grid item className={classes.post} key={p}>
-          <PostSkeleton />
-        </Grid>
-      ))
-    : data.map((post) => (
-        <Grid item key={post._id} className={classes.post}>
-          <Post key={post._id} post={post} />
-        </Grid>
-      ));
+  return !data.length ? (
+    <PostSkeleton />
+  ) : (
+    data.map((post) => (
+      <animated.div style={props} key={post._id}>
+        <Post key={post._id} post={post} className={classes.post} />
+      </animated.div>
+    ))
+  );
 };
 
 export const PostSkeleton = () => {
   const classes = Style();
 
   return (
-    <Card className={classes.skeleton}>
+    <Card elevation={0} className={classes.skeleton}>
       <CardHeader avatar={<Skeleton variant="circle" width={50} height={50} />} title={<Skeleton variant="text" width={100} height={20} />} subheader={<Skeleton variant="text" width={50} height={20} />} />
 
       <CardMedia>
