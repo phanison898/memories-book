@@ -30,6 +30,14 @@ const style = makeStyles((theme) => ({
       alignItems: "center",
       textDecoration: "none",
       color: "white",
+      "& > .MuiSvgIcon-root": {
+        fontSize: "26px",
+        fontWeight: 600,
+        transition: "color 0.3s ease",
+        "&:hover": {
+          color: "black",
+        },
+      },
     },
   },
 }));

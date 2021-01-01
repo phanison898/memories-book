@@ -41,7 +41,13 @@ const Style = makeStyles((theme) => ({
   },
   header__post__button: {
     cursor: "pointer",
-    display: "block",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "& >  .MuiSvgIcon-root": {
+      marginLeft: theme.spacing(1) / 2,
+      fontSize: "20px",
+    },
   },
   form__title: {
     width: "100%",

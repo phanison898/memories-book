@@ -1,11 +1,15 @@
+import { number } from "joi";
 import * as api from "../api";
 
 export const GetPostCount = () => async (dispatch) => {
   try {
     const { data } = await api.FetchPostCount();
+    window.localStorage.setItem("posts-count", data);
+
     dispatch({ type: "COUNT", payload: data });
   } catch (error) {
     console.log(error.message);
+    return;
   }
 };
 
@@ -22,6 +26,11 @@ export const SendPostData = (userPostData) => async (dispatch) => {
   try {
     const { data } = await api.CreatePost(userPostData);
     const { status, message, post } = data;
+
+    const count = parseInt(window.localStorage.getItem("posts-count"));
+    console.log("local storage count : " + count);
+    window.localStorage.setItem("posts-count", count + 1);
+
     dispatch({
       type: "CREATE",
       payload: {
@@ -59,6 +68,11 @@ export const UpdatePostById = (id, userPostData) => async (dispatch) => {
 export const DeletePostData = (id) => async (dispatch) => {
   try {
     const { data } = await api.DeletePost(id);
+
+    const count = window.localStorage.getItem("posts-count");
+    const newCount = parseInt(count) - 1;
+    window.localStorage.setItem("posts-count", newCount);
+
     dispatch({
       type: "DELETE",
       payload: {

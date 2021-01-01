@@ -37,7 +37,6 @@ const NavBar = ({ url }) => {
   };
 
   useEffect(() => {
-    // gets user details from server (email & name)
     dispatch(GetUser());
   }, []);
 

@@ -8,12 +8,14 @@ import LabelImportantIcon from "@material-ui/icons/LabelImportant";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ImageIcon from "@material-ui/icons/Image";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
+import SendIcon from "@material-ui/icons/Send";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import { useHistory } from "react-router-dom";
 import Style from "./style";
 
-const PostForm = ({ data, setData, onSubmitHandler }) => {
+const PostForm = ({ heading, submitButtonText, data, setData, onSubmitHandler }) => {
   const classes = Style();
-
+  const history = useHistory();
   const muiTheme = useTheme();
 
   const imageUploadHandler = async (e) => {
@@ -68,6 +70,10 @@ const PostForm = ({ data, setData, onSubmitHandler }) => {
     },
   });
 
+  const goBackButtonClick = () => {
+    history.goBack();
+  };
+
   return (
     <animated.div style={anime}>
       <Paper elevation={0} className={classes.root}>
@@ -76,11 +82,12 @@ const PostForm = ({ data, setData, onSubmitHandler }) => {
             {/* Form header */}
             <div className={classes.form__header}>
               <Typography variant="subtitle1" className={classes.header__title}>
-                <KeyboardBackspaceIcon />
-                Create Memory
+                <KeyboardBackspaceIcon onClick={goBackButtonClick} />
+                {heading}
               </Typography>
               <Typography className={classes.header__post__button} onClick={onSubmitHandler}>
-                Post
+                {submitButtonText}
+                <SendIcon />
               </Typography>
             </div>
 

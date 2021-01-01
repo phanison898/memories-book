@@ -47,7 +47,7 @@ const EditPost = ({ url }) => {
     dispatch(UpdatePostById(postId, data));
   };
 
-  return <PostForm data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
+  return <PostForm heading="Update Memory" submitButtonText="Update" data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
 };
 
 export default EditPost;

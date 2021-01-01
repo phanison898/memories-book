@@ -12,6 +12,7 @@ export const SignUp = (signUpData) => async (dispatch) => {
     }
     if (responseData.status) {
       window.localStorage.setItem("auth-token", responseData.token);
+      window.localStorage.setItem("username", responseData.username);
     }
     dispatch({
       type: "SIGNUP",
@@ -57,6 +58,7 @@ export const Login = (loginData) => async (dispatch) => {
 export const Logout = () => async (dispatch) => {
   window.localStorage.removeItem("auth-token");
   window.localStorage.removeItem("username");
+  window.localStorage.removeItem("posts-count");
 
   try {
     dispatch({

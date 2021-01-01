@@ -38,7 +38,7 @@ const Form = ({ url }) => {
     dispatch(SendPostData(data));
   };
 
-  return <PostForm data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
+  return <PostForm heading="Create Memory" submitButtonText="Post" data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
 };
 
 export default Form;

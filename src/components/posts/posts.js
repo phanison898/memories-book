@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -14,12 +14,13 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import moment from "moment";
 import { Menu, MenuItem, Tooltip, Grid } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DeletePostData } from "../../actions/posts";
 import Style from "./style";
 import { useHistory } from "react-router-dom";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { useSpring, animated } from "react-spring";
+import NoPosts from "./noPosts";
 
 const Post = ({ post, url }) => {
   const { _id, title, description, tags, selectedFile, date } = post;
@@ -109,9 +110,13 @@ const Post = ({ post, url }) => {
 };
 
 const Posts = ({ posts, url }) => {
-  const data = Array.from(posts);
   const classes = Style();
-  const props = useSpring({
+
+  const data = Array.from(posts);
+
+  const [postCount, setPostCount] = useState(window.localStorage.getItem("posts-count"));
+
+  const postAnim = useSpring({
     width: "100%",
     height: "100%",
     opacity: 1,
@@ -120,11 +125,32 @@ const Posts = ({ posts, url }) => {
     },
   });
 
-  return !data.length ? (
-    <PostSkeleton />
+  const NoPostAnim = useSpring({
+    width: "100%",
+    height: "80%",
+    opacity: 1,
+    from: {
+      width: "0%",
+      height: "0%",
+      opacity: 0,
+    },
+  });
+
+  useEffect(() => {
+    setPostCount(window.localStorage.getItem("posts-count"));
+  }, [window.localStorage.getItem("posts-count")]);
+
+  return parseInt(postCount) === 0 ? (
+    <animated.div style={NoPostAnim}>
+      <NoPosts url={url} />
+    </animated.div>
+  ) : !data.length ? (
+    <>
+      <PostSkeleton />
+    </>
   ) : (
     data.map((post) => (
-      <animated.div style={props} key={post._id}>
+      <animated.div style={postAnim} key={post._id}>
         <Post key={post._id} post={post} className={classes.post} url={url} />
       </animated.div>
     ))

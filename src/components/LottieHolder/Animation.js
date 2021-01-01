@@ -4,8 +4,8 @@ import lottie from "lottie-web";
 
 const styles = makeStyles((theme) => ({
   root: {
-    width: "100vw",
-    height: "100vh",
+    width: "100%",
+    height: "100%",
     zIndex: 10000,
   },
 }));
