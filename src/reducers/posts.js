@@ -37,6 +37,8 @@ const postsReducer = (state = initialPostsState, action) => {
       return { ...state, create: action.payload };
     case "CLEAN_UPDATE":
       return { ...state, update: action.payload };
+    case "CLEAN_DELETE":
+      return { ...state, delete: action.payload };
     default:
       return state;
   }

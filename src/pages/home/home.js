@@ -4,7 +4,7 @@ import { useHistory, Switch, Route } from "react-router-dom";
 import { Grid, Paper } from "@material-ui/core";
 //--------------[ L O C A L -- I M P O R T S ]-------------//
 import { GetPostData } from "../../actions/posts";
-import Profile from "../../components/profile/profile";
+import Dashboard from "../../components/dashboard/dashboard";
 import Header from "../../components/header/header";
 import NavBar from "../../components/navbar/navbar";
 import Posts from "../../components/posts/posts";
@@ -12,7 +12,7 @@ import AddPost from "../../components/upload/addPost";
 import EditPost from "../../components/upload/editPost";
 import style from "./style";
 
-const Home = ({ match }) => {
+const Home = ({ match, setIsDarkMode }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { url, path } = match;
@@ -44,7 +44,7 @@ const Home = ({ match }) => {
       <Grid container className={classes.root}>
         <Grid item className={classes.header}>
           <Header />
-          <NavBar url={url} />
+          <NavBar url={url} setIsDarkMode={setIsDarkMode} />
         </Grid>
 
         <Paper className={classes.body}>
@@ -53,7 +53,7 @@ const Home = ({ match }) => {
               <Route exact path={`${path}`} render={() => <Posts posts={posts} url={url} />} />
               <Route exact path={`${path}/add`} render={() => <AddPost url={url} />} />
               <Route exact path={`${path}/edit`} render={() => <EditPost url={url} />} />
-              <Route exact path={`${path}/dashboard`} render={() => <Profile />} />
+              <Route exact path={`${path}/dashboard`} render={() => <Dashboard />} />
             </Switch>
           </Paper>
         </Paper>

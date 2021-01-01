@@ -1,8 +1,9 @@
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import Animation from "../../components/LottieHolder/Animation";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+//-----------local-imports--------------------//
+import Animation from "../animations/animation";
 import Create from "../../images/group.json";
 
 const style = makeStyles((theme) => ({

@@ -11,6 +11,8 @@ const Form = ({ url }) => {
   const { create } = useSelector((state) => state.posts);
   const { status, message } = create;
 
+  const [open, setOpen] = useState(false);
+
   const [data, setData] = useState({
     title: "",
     description: "",
@@ -20,6 +22,7 @@ const Form = ({ url }) => {
 
   useEffect(() => {
     if (status) {
+      setOpen(false);
       history.push(`${url}`);
     } else {
       console.log("there is some problem :- [ " + message + " ]");
@@ -34,11 +37,11 @@ const Form = ({ url }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
+    setOpen(true);
     dispatch(SendPostData(data));
   };
 
-  return <PostForm heading="Create Memory" submitButtonText="Post" data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
+  return <PostForm open={open} heading="Create Memory" submitButtonText="Post" data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
 };
 
 export default Form;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Badge, Typography, Paper } from "@material-ui/core";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
@@ -7,8 +7,11 @@ import Style from "./style";
 
 const Header = () => {
   const classes = Style();
-  const posts = useSelector((state) => state.posts.get);
-  const postsCount = Array.from(posts).length;
+
+  const [postsCount, setPostCount] = useState(parseInt(window.localStorage.getItem("posts-count")));
+  useEffect(() => {
+    setPostCount(parseInt(window.localStorage.getItem("posts-count")));
+  }, [window.localStorage.getItem("posts-count")]);
 
   return (
     <Paper className={classes.header}>

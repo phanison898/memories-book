@@ -18,6 +18,8 @@ const EditPost = ({ url }) => {
   const posts = get;
   const postById = posts.find((post) => post._id === postId);
 
+  const [open, setOpen] = useState(false);
+
   const { status, message } = update;
 
   const [data, setData] = useState({
@@ -30,6 +32,7 @@ const EditPost = ({ url }) => {
   useEffect(() => {
     if (status) {
       history.push(`${url}`);
+      setOpen(false);
     } else {
       console.log("there is some problem :- [ " + message + " ]");
     }
@@ -44,10 +47,11 @@ const EditPost = ({ url }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setOpen(true);
     dispatch(UpdatePostById(postId, data));
   };
 
-  return <PostForm heading="Update Memory" submitButtonText="Update" data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
+  return <PostForm open={open} heading="Update Memory" submitButtonText="Update" data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
 };
 
 export default EditPost;

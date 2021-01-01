@@ -11,9 +11,12 @@ import VideocamOffIcon from "@material-ui/icons/VideocamOff";
 import SendIcon from "@material-ui/icons/Send";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import { useHistory } from "react-router-dom";
+import Backdrop from "@material-ui/core/Backdrop";
 import Style from "./style";
+import Animation from "../animations/animation";
+import Loading from "../../images/wave-loading.json";
 
-const PostForm = ({ heading, submitButtonText, data, setData, onSubmitHandler }) => {
+const PostForm = ({ open, heading, submitButtonText, data, setData, onSubmitHandler }) => {
   const classes = Style();
   const history = useHistory();
   const muiTheme = useTheme();
@@ -130,6 +133,11 @@ const PostForm = ({ heading, submitButtonText, data, setData, onSubmitHandler })
           </label>
         </Paper>
       </Paper>
+      <Backdrop open={open} style={{ zIndex: 10000 }}>
+        <div style={{ width: "500px", height: "250px" }}>
+          <Animation src={Loading} />
+        </div>
+      </Backdrop>
     </animated.div>
   );
 };

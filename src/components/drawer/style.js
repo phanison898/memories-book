@@ -17,7 +17,7 @@ const style = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 0,
-    padding: theme.spacing(2),
+    paddingTop: theme.spacing(2),
     overflow: "hidden",
   },
   profile: {
@@ -38,15 +38,6 @@ const style = makeStyles((theme) => ({
       fontWeight: 600,
       textTransform: "uppercase",
     },
-  },
-  info: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-  text: {
-    marginLeft: theme.spacing(1),
   },
   logout: {
     width: "100%",

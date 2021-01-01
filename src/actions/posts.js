@@ -1,4 +1,3 @@
-import { number } from "joi";
 import * as api from "../api";
 
 export const GetPostCount = () => async (dispatch) => {
@@ -101,6 +100,16 @@ export const CleanCreate = () => async (dispatch) => {
 export const CleanUpdate = () => async (dispatch) => {
   dispatch({
     type: "CLEAN_UPDATE",
+    payload: {
+      status: false,
+      message: "",
+    },
+  });
+};
+
+export const CleanDelete = () => async (dispatch) => {
+  dispatch({
+    type: "CLEAN_DELETE",
     payload: {
       status: false,
       message: "",

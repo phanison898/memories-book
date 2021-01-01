@@ -13,6 +13,7 @@ export const SignUp = (signUpData) => async (dispatch) => {
     if (responseData.status) {
       window.localStorage.setItem("auth-token", responseData.token);
       window.localStorage.setItem("username", responseData.username);
+      window.localStorage.setItem("dark-mode", false);
     }
     dispatch({
       type: "SIGNUP",
@@ -40,6 +41,7 @@ export const Login = (loginData) => async (dispatch) => {
     if (responseData.status) {
       window.localStorage.setItem("auth-token", responseData.token);
       window.localStorage.setItem("username", responseData.username);
+      window.localStorage.setItem("dark-mode", false);
     }
     dispatch({
       type: "LOGIN",
@@ -59,6 +61,7 @@ export const Logout = () => async (dispatch) => {
   window.localStorage.removeItem("auth-token");
   window.localStorage.removeItem("username");
   window.localStorage.removeItem("posts-count");
+  window.localStorage.removeItem("dark-mode");
 
   try {
     dispatch({

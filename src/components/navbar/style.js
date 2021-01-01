@@ -33,7 +33,7 @@ const style = makeStyles((theme) => ({
       "& > .MuiSvgIcon-root": {
         fontSize: "26px",
         fontWeight: 600,
-        transition: "color 0.3s ease",
+        transition: "all 0.5s ease",
         "&:hover": {
           color: "black",
         },

@@ -10,7 +10,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const Animation = ({ src }) => {
+const Animation = ({ src }, ...rest) => {
   const classes = styles();
 
   const container = useRef(null);
@@ -22,6 +22,7 @@ const Animation = ({ src }) => {
       loop: true,
       autoplay: true,
       animationData: src,
+      ...rest,
     });
   }, []);
 

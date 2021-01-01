@@ -1,30 +1,25 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Offline, Online } from "react-detect-offline";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 //--------------local-imports-------------//
-import Animation from "./components/LottieHolder/Animation";
+import Animation from "./components/animations/animation";
 import OfflineAnimation from "./images/offline.json";
 import PageNotFound from "./images/404.json";
 import Auth from "./components/auth/auth";
 import Home from "./pages/home/home";
 
 const App = () => {
-  const { theme } = useSelector((state) => state.util);
-
-  const [themeStatus, setThemeStatus] = useState(theme);
+  const [isDarkMode, setIsDarkMode] = useState(window.localStorage.getItem("dark-mode") === "true");
   const [username, setUsername] = useState(window.localStorage.getItem("username"));
 
   const MuiTheme = createMuiTheme({
     palette: {
-      type: themeStatus ? "dark" : "light",
+      type: isDarkMode ? "dark" : "light",
     },
   });
 
-  useEffect(() => {
-    setThemeStatus(theme);
-  }, [theme]);
+  useEffect(() => {}, []);
 
   return (
     <ThemeProvider theme={MuiTheme}>
@@ -33,7 +28,7 @@ const App = () => {
         <Router>
           <Switch>
             {/* Path to Home page */}
-            <Route path={`/${username}`} render={({ match }) => <Home match={match} />} />
+            <Route path={`/${username}`} render={({ match }) => <Home match={match} setIsDarkMode={setIsDarkMode} />} />
 
             {/* Path to authentication page (login/sign-up) */}
             <Route exact path="/" render={() => <Auth setUsername={setUsername} />} />

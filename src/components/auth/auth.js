@@ -1,12 +1,12 @@
 import { Paper, TextField, Button } from "@material-ui/core";
-import { Alert, AlertTitle } from "@material-ui/lab";
 import { useEffect, useState } from "react";
-import { Login, SignUp } from "../../actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import style from "./style";
-import Popup from "../../components/popup/popup";
+//----------------local-imports--------------------//
+import { Login, SignUp } from "../../actions/users";
 import { GetPostCount } from "../../actions/posts";
+import Popup from "../../components/popup/popup";
+import style from "./style";
 
 const Auth = ({ setUsername }) => {
   const classes = style();
@@ -34,13 +34,11 @@ const Auth = ({ setUsername }) => {
     setMessage(loggingMessage);
     loggingMessage && setOpen(true);
 
-    if (!authStatus) return;
-    setVerified(true);
-
     const auth_token = window.localStorage.getItem("auth-token");
     const username = window.localStorage.getItem("username");
 
     if (auth_token !== null && auth_token !== undefined) {
+      setVerified(true);
       setTimeout(() => {
         dispatch(GetPostCount());
         setUsername(username);
