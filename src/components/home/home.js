@@ -4,12 +4,12 @@ import { useHistory, Switch, Route } from "react-router-dom";
 import { Grid, Paper } from "@material-ui/core";
 //--------------[ L O C A L -- I M P O R T S ]-------------//
 import { GetPostData } from "../../actions/posts";
-import Dashboard from "../../components/dashboard/dashboard";
-import Header from "../../components/header/header";
-import NavBar from "../../components/navbar/navbar";
-import Posts from "../../components/posts/posts";
-import AddPost from "../../components/upload/addPost";
-import EditPost from "../../components/upload/editPost";
+import Dashboard from "./../dashboard/dashboard";
+import Header from "./../header/header";
+import NavBar from "./../navbar/navbar";
+import Posts from "./../posts/posts";
+import AddPost from "./../upload/addPost";
+import EditPost from "./../upload/editPost";
 import style from "./style";
 
 const Home = ({ match, setIsDarkMode }) => {

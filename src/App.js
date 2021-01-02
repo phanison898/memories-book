@@ -7,7 +7,7 @@ import Animation from "./components/animations/animation";
 import OfflineAnimation from "./images/offline.json";
 import PageNotFound from "./images/404.json";
 import Auth from "./components/auth/auth";
-import Home from "./pages/home/home";
+import Home from "./components/home/home";
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(window.localStorage.getItem("dark-mode") === "true");
@@ -18,8 +18,6 @@ const App = () => {
       type: isDarkMode ? "dark" : "light",
     },
   });
-
-  useEffect(() => {}, []);
 
   return (
     <ThemeProvider theme={MuiTheme}>
