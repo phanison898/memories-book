@@ -26,8 +26,14 @@ const Style = makeStyles((theme) => ({
     height: "300px",
   },
   tags: {
+    display: "flex",
+    justifyContent: "flex-start",
+    alignContent: "center",
     color: theme.palette.success.dark,
     cursor: "pointer",
+    "& >p": {
+      marginRight: theme.spacing(1) / 2,
+    },
   },
   skeleton: {
     marginBottom: theme.spacing(1),

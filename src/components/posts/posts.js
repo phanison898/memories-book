@@ -44,15 +44,14 @@ const Posts = ({ posts, url }) => {
     </animated.div>
   );
 
-  const PostSkeletonComponent = () => <PostSkeleton />;
-
   const [postCount, setPostCount] = useState(window.localStorage.getItem("posts-count"));
 
   useEffect(() => {
     setPostCount(window.localStorage.getItem("posts-count"));
   }, [window.localStorage.getItem("posts-count")]);
 
-  return parseInt(postCount) === 0 ? <NoPostsComponent /> : !postsArray.length ? <PostSkeletonComponent /> : <PostsComponent />;
+  const areNoPosts = parseInt(postCount) === 0 || postCount === undefined || postCount === null;
+  return areNoPosts ? <NoPostsComponent /> : !postsArray.length ? <PostSkeleton /> : <PostsComponent />;
 };
 
 export default Posts;

@@ -19,7 +19,7 @@ const Header = () => {
         Memories
       </Typography>
 
-      <Badge badgeContent={postsCount} color="secondary" className={classes.header__postsCount}>
+      <Badge badgeContent={postsCount ? postsCount : 0} color="secondary" className={classes.header__postsCount}>
         <PhotoLibraryIcon />
       </Badge>
     </Paper>

@@ -1,5 +1,6 @@
 import { Paper, Typography, Divider, Input } from "@material-ui/core";
 import { useSpring, animated } from "react-spring";
+import { useHistory } from "react-router-dom";
 import { useTheme } from "@material-ui/core/styles";
 import imageCompression from "browser-image-compression";
 import GestureIcon from "@material-ui/icons/Gesture";
@@ -10,53 +11,45 @@ import ImageIcon from "@material-ui/icons/Image";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
 import SendIcon from "@material-ui/icons/Send";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
-import { useHistory } from "react-router-dom";
 import Backdrop from "@material-ui/core/Backdrop";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
+//--------------------local-imports------------------//
 import Style from "./style";
 import Animation from "../animations/animation";
 import Loading from "../../images/wave-loading.json";
 
-const PostForm = ({ open, heading, submitButtonText, data, setData, onSubmitHandler }) => {
+const PostForm = ({ props }) => {
   const classes = Style();
   const history = useHistory();
   const muiTheme = useTheme();
 
-  const imageUploadHandler = async (e) => {
-    const image = e.target.files[0];
-    let compressedFile;
+  const { isLoading, isWarning, setIsWarning, message, heading, submitButtonText, data, setData, onSubmitHandler } = props;
 
-    const options = {
+  const imageUploadHandler = async (e) => {
+    let compressedImage;
+
+    const inputImage = e.target.files[0];
+
+    const compressionOptions = {
       maxSizeMB: 1,
       maxWidthOrHeight: 1920,
       useWebWorker: true,
     };
 
     try {
-      compressedFile = await imageCompression(image, options);
+      compressedImage = await imageCompression(inputImage, compressionOptions);
     } catch (error) {
       console.log(error);
     }
 
     const file = new FileReader();
-    if (compressedFile) {
-      file.onloadend = (fle) => {
-        const base64 = fle.target.result;
-        setData({ ...data, selectedFile: base64 });
+    if (compressedImage) {
+      file.onloadend = (fileLoadedEvent) => {
+        const base64Formate = fileLoadedEvent.target.result;
+        setData({ ...data, selectedFile: base64Formate });
       };
-      file.readAsDataURL(compressedFile);
-    } else {
-      console.log("error");
-    }
-  };
-
-  const handleTags = (e) => {
-    const value = e.target.value;
-    if (!value) {
-      setData({ ...data, tags: [] });
-      return;
-    } else {
-      const convertedTags = value.split(" ");
-      setData({ ...data, tags: convertedTags });
+      file.readAsDataURL(compressedImage);
     }
   };
 
@@ -77,29 +70,61 @@ const PostForm = ({ open, heading, submitButtonText, data, setData, onSubmitHand
     history.goBack();
   };
 
+  const Header = () => (
+    <>
+      <div className={classes.form__header}>
+        <Typography variant="subtitle1" className={classes.header__title}>
+          <KeyboardBackspaceIcon onClick={goBackButtonClick} />
+          {heading}
+        </Typography>
+        <Typography className={classes.header__post__button} onClick={onSubmitHandler}>
+          {submitButtonText}
+          <SendIcon />
+        </Typography>
+      </div>
+      <Divider />
+    </>
+  );
+
+  const UploadImage = () => (
+    <>
+      <Divider />
+      <Paper elevation={0} className={classes.bottom__tools}>
+        <Typography variant="h6">Upload an image....</Typography>
+        <label htmlFor="file">
+          <PhotoCameraIcon style={{ color: muiTheme.palette.success.main }} />
+          <ImageIcon style={{ color: muiTheme.palette.info.dark }} />
+          <VideocamOffIcon style={{ color: muiTheme.palette.error.main }} />
+        </label>
+      </Paper>
+    </>
+  );
+
+  const Error = () => (
+    <Snackbar anchorOrigin={{ horizontal: "center", vertical: "top" }} autoHideDuration={2500} open={isWarning} onClose={() => setIsWarning(false)} style={{ position: "absolute", zIndex: 10001 }}>
+      <Alert severity="error">Error: {message}</Alert>
+    </Snackbar>
+  );
+
+  const LoadingAnimation = () => (
+    <Backdrop open={isLoading} style={{ zIndex: 10000 }}>
+      <div style={{ width: "500px", height: "250px" }}>
+        <Animation src={Loading} />
+      </div>
+    </Backdrop>
+  );
+
   return (
     <animated.div style={anime}>
       <Paper elevation={0} className={classes.root}>
         <Paper className={classes.form}>
           <form noValidate autoComplete="off" onSubmit={onSubmitHandler}>
-            {/* Form header */}
-            <div className={classes.form__header}>
-              <Typography variant="subtitle1" className={classes.header__title}>
-                <KeyboardBackspaceIcon onClick={goBackButtonClick} />
-                {heading}
-              </Typography>
-              <Typography className={classes.header__post__button} onClick={onSubmitHandler}>
-                {submitButtonText}
-                <SendIcon />
-              </Typography>
-            </div>
-
-            <Divider />
+            <Header />
 
             {/* Form Title filed */}
             <div className={classes.form__title}>
               <LabelImportantIcon style={{ color: muiTheme.palette.success.dark }} />
-              <Input placeholder="Add a unique title" disableUnderline required id="title" value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
+              <Input placeholder="Add an unique title" disableUnderline required id="title" value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
             </div>
 
             {/* Form Description filed */}
@@ -110,34 +135,22 @@ const PostForm = ({ open, heading, submitButtonText, data, setData, onSubmitHand
 
             {/* Form Upload image filed */}
             <div className={classes.form__upload}>
-              <input type="file" id="file" hidden onChange={imageUploadHandler} />
+              <input type="file" id="file" accept="image/*" hidden onChange={imageUploadHandler} />
               <Paper className={classes.uploaded_image}>{data.selectedFile ? <img src={data.selectedFile} /> : null}</Paper>
             </div>
 
             {/* Form tags filed */}
             <div className={classes.form__tags}>
               <LocalOfferIcon style={{ color: muiTheme.palette.warning.dark }} />
-              <Input placeholder="#hash tags (optional)" disableUnderline id="tags" value={data.tags} onChange={handleTags} />
+              <Input placeholder="#hash tags (optional)" disableUnderline id="tags" value={data.tags} onChange={(e) => setData({ ...data, tags: e.target.value })} />
             </div>
           </form>
         </Paper>
 
-        <Divider />
-        {/* Form upload image icon fileds */}
-        <Paper elevation={0} className={classes.bottom__tools}>
-          <Typography variant="h6">Upload an image....</Typography>
-          <label htmlFor="file">
-            <PhotoCameraIcon style={{ color: muiTheme.palette.success.main }} />
-            <ImageIcon style={{ color: muiTheme.palette.info.dark }} />
-            <VideocamOffIcon style={{ color: muiTheme.palette.error.main }} />
-          </label>
-        </Paper>
+        <UploadImage />
       </Paper>
-      <Backdrop open={open} style={{ zIndex: 10000 }}>
-        <div style={{ width: "500px", height: "250px" }}>
-          <Animation src={Loading} />
-        </div>
-      </Backdrop>
+      <Error />
+      <LoadingAnimation />
     </animated.div>
   );
 };

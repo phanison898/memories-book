@@ -9,18 +9,17 @@ const EditPost = ({ url }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { search } = useLocation();
-  const searchParams = new URLSearchParams(search);
-
-  const postId = searchParams.get("postId") || undefined;
-  const { update, get } = useSelector((state) => state.posts);
-
-  const posts = get;
-  const postById = posts.find((post) => post._id === postId);
-
-  const [open, setOpen] = useState(false);
+  const { update, get: posts } = useSelector((state) => state.posts);
 
   const { status, message } = update;
+  const { search } = useLocation();
+  const postId = new URLSearchParams(search).get("postId") || undefined;
+
+  const postById = posts.find((post) => post._id === postId);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isWarning, setIsWarning] = useState(false);
+  const [isMessage, setIsMessage] = useState(message);
 
   const [data, setData] = useState({
     title: postById.title || "",
@@ -30,28 +29,37 @@ const EditPost = ({ url }) => {
   });
 
   useEffect(() => {
+    setIsLoading(false);
     if (status) {
       history.push(`${url}`);
-      setOpen(false);
     } else {
-      console.log("there is some problem :- [ " + message + " ]");
+      message && setIsWarning(true);
     }
     return () => {
-      if (status) {
-        console.log("cleaning/resetting update state");
-        dispatch(CleanUpdate());
-      }
-      console.log("are you sure ...????");
+      setIsMessage(message);
+      dispatch(CleanUpdate());
     };
-  }, [status]);
+  }, [message]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    setOpen(true);
+    setIsLoading(true);
     dispatch(UpdatePostById(postId, data));
   };
 
-  return <PostForm open={open} heading="Update Memory" submitButtonText="Update" data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
+  const postProps = {
+    isLoading: isLoading,
+    isWarning: isWarning,
+    setIsWarning: setIsWarning,
+    message: isMessage,
+    heading: "Update Memory",
+    submitButtonText: "Update",
+    data: data,
+    setData: setData,
+    onSubmitHandler: onSubmitHandler,
+  };
+
+  return <PostForm props={postProps} />;
 };
 
 export default EditPost;

@@ -23,32 +23,42 @@ export const GetPostData = () => async (dispatch) => {
 
 export const SendPostData = (userPostData) => async (dispatch) => {
   try {
-    const { data } = await api.CreatePost(userPostData);
-    const { status, message, post } = data;
-
-    const count = parseInt(window.localStorage.getItem("posts-count"));
-    console.log("local storage count : " + count);
-    window.localStorage.setItem("posts-count", count + 1);
-
+    let responseData;
+    try {
+      const { data } = await api.CreatePost(userPostData);
+      responseData = data;
+    } catch (error) {
+      responseData = error.response.data;
+    }
+    if (responseData.status) {
+      const count = parseInt(window.localStorage.getItem("posts-count"));
+      window.localStorage.setItem("posts-count", count + 1);
+    }
     dispatch({
       type: "CREATE",
       payload: {
         create: {
-          status: status,
-          message: message,
+          status: responseData.status,
+          message: responseData.message,
         },
-        postData: post,
+        postData: responseData.post,
       },
     });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
 
 export const UpdatePostById = (id, userPostData) => async (dispatch) => {
   try {
-    const { data } = await api.UpdatePost(id, userPostData);
-    const { status, message, post } = data;
+    let responseData;
+    try {
+      const { data } = await api.UpdatePost(id, userPostData);
+      responseData = data;
+    } catch (error) {
+      responseData = error.response.data;
+    }
+    const { status, message, post } = responseData;
     dispatch({
       type: "UPDATE",
       payload: {
@@ -60,7 +70,7 @@ export const UpdatePostById = (id, userPostData) => async (dispatch) => {
       },
     });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
 
@@ -70,7 +80,7 @@ export const DeletePostData = (id) => async (dispatch) => {
 
     const count = window.localStorage.getItem("posts-count");
     const newCount = parseInt(count) - 1;
-    window.localStorage.setItem("posts-count", newCount);
+    window.localStorage.setItem("posts-count", newCount ? newCount : 0);
 
     dispatch({
       type: "DELETE",

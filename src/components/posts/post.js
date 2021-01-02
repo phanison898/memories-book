@@ -29,6 +29,7 @@ const Post = ({ post, url }) => {
   const classes = Style();
 
   const { _id, title, description, tags, selectedFile, date } = post;
+  const tagsArray = tags ? (tags + "").split(",") : [];
   const { status } = useSelector((state) => state.posts.delete);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -113,7 +114,9 @@ const Post = ({ post, url }) => {
             {description}
           </Typography>
           <Typography variant="caption" className={classes.tags}>
-            {tags && tags.map((tag) => <p key={tag}>#{tag}</p>)}
+            {tagsArray.map((tag, index) => (
+              <p key={index}>#{tag}</p>
+            ))}
           </Typography>
         </CardContent>
         {/*----------------------------------Card Action---------------------------------*/}

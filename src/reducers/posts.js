@@ -22,7 +22,9 @@ const postsReducer = (state = initialPostsState, action) => {
     case "COUNT":
       return { ...state, count: action.payload };
     case "CREATE":
-      return { ...state, create: action.payload.create, get: [...state.get, action.payload.postData] };
+      const post = action.payload.postData;
+      const isEmpty = Object.keys(post).length;
+      return { ...state, create: action.payload.create, get: isEmpty ? [...state.get, post] : state.get };
     case "UPDATE":
       return {
         ...state,
@@ -30,7 +32,7 @@ const postsReducer = (state = initialPostsState, action) => {
         get: state.get.map((post) => (post._id === action.payload.postData._id ? action.payload.postData : post)),
       };
     case "DELETE":
-      return { ...state, update: action.payload.update, get: state.get.filter((post) => post._id !== action.payload.postId) };
+      return { ...state, delete: action.payload.delete, get: state.get.filter((post) => post._id !== action.payload.postId) };
     case "LOGOUT":
       return initialPostsState;
     case "CLEAN_CREATE":

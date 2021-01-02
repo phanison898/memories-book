@@ -11,37 +11,51 @@ const Form = ({ url }) => {
   const { create } = useSelector((state) => state.posts);
   const { status, message } = create;
 
-  const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isWarning, setIsWarning] = useState(false);
+  const [isMessage, setIsMessage] = useState(message);
 
   const [data, setData] = useState({
     title: "",
     description: "",
-    tags: [],
+    tags: "",
     selectedFile: "",
   });
 
   useEffect(() => {
+    setIsLoading(false);
+
     if (status) {
-      setOpen(false);
       history.push(`${url}`);
     } else {
-      console.log("there is some problem :- [ " + message + " ]");
+      message && setIsWarning(true);
     }
+
     return () => {
-      if (status) {
-        console.log("cleaning/resetting create state");
-        dispatch(CleanCreate());
-      }
+      setIsMessage(message);
+      dispatch(CleanCreate());
     };
-  }, [status]);
+  }, [message]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    setOpen(true);
+    setIsLoading(true);
     dispatch(SendPostData(data));
   };
 
-  return <PostForm open={open} heading="Create Memory" submitButtonText="Post" data={data} setData={setData} onSubmitHandler={onSubmitHandler} />;
+  const postProps = {
+    isLoading: isLoading,
+    isWarning: isWarning,
+    setIsWarning: setIsWarning,
+    message: isMessage,
+    heading: "Create Memory",
+    submitButtonText: "Post",
+    data: data,
+    setData: setData,
+    onSubmitHandler: onSubmitHandler,
+  };
+
+  return <PostForm props={postProps} />;
 };
 
 export default Form;
